@@ -1,9 +1,7 @@
 # Meetings
 *	2018/01/13 Attended online meeting to understand the mechanisms of the class
-
-•	2018/01/15 Attended office hours with TA (Tyler) to get the pyenv installation issue resolved 
-
-•	2018/01/27 Attended online office hours with TA (Vibhata) and Prof. Gregor to get some issues resolved
+* 2018/01/15 Attended office hours with TA (Tyler) to get the pyenv installation issue resolved 
+* 2018/01/27 Attended online office hours with TA (Vibhata) and Prof. Gregor to get some issues resolved
 
 # Logistic
 •	2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
