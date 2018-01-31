@@ -1,5 +1,5 @@
 # Meetings
-•	2018/01/13 Attended online meeting to understand the mechanisms of the class
+*	2018/01/13 Attended online meeting to understand the mechanisms of the class
 
 •	2018/01/15 Attended office hours with TA (Tyler) to get the pyenv installation issue resolved 
 
