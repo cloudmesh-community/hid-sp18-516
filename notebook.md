@@ -4,9 +4,8 @@
 * 2018/01/27 Attended online office hours with TA (Vibhata) and Prof. Gregor to get some issues resolved
 
 # Logistic
-•	2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
-
-•	2018/01/12 Read the Part4-Documenting Scientific Research 
+* 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
+* 2018/01/12 Read the Part4-Documenting Scientific Research 
 
 •	2018/01/12 Created an account on ShareLatex and watched the video.
 
