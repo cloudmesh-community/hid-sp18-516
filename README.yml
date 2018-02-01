@@ -1,5 +1,7 @@
+# Owner Details
+---
 owner:
-  firstname: Shagufta
-  lastname: Pathan 
-  community: i524
-  hid: 516
+  - firstname: "Shagufta"
+  - lastname: "Pathan"
+  - community: "i524"
+  - hid: "516"
