@@ -57,12 +57,12 @@ def memory_usage():
     memoryUsage_json = jsonify(memoryUsage)
     return memoryUsage_json
 
-#CPU Percent
-@app.route('/performance/getCPUPercent')
-def getCPUPercent():
-    cpuPercent = psutil.cpu_times()
-    cpuPercent_json = jsonify(cpuPercent)
-    return cpuPercent_json
+#CPU times
+@app.route('/performance/getCPUtimes')
+def getCPUtimes():
+    cpuTimes = psutil.cpu_times()
+    cpuTimes_json = jsonify(cpuTimes)
+    return cpuTimes_json
    
 if __name__ == '__main__':
     app.run() 
