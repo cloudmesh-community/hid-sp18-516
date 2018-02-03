@@ -6,7 +6,7 @@ from flask import jsonify
 app = Eve()
 
 #Processor name
-@app.route('/performance/getProcessorName')
+@app.route('/performance/processorName')
 def processor():
     name = platform.processor()
     return name
@@ -24,41 +24,41 @@ def nodeInfo():
     return nodeInfo
 
 #System name
-@app.route('/performance/getSysName')
+@app.route('/performance/sysName')
 def sys_Name():
     sysName = platform.system()
     return sysName
 
 #Disk partition
-@app.route('/performance/getDiskPartitionInfo')
+@app.route('/performance/diskPartitionInfo')
 def disk_partition():
     diskPartition = psutil.disk_partitions()
     diskPartition_json = jsonify(diskPartition)
     return diskPartition_json
 
 #Disk usage
-@app.route('/performance/getDiskUsage')
+@app.route('/performance/diskUsage')
 def disk_usage():
     usage = psutil.disk_usage('/') 
     diskUsage_json = jsonify(usage)
     return diskUsage_json
 
 #Disk I/O statistics
-@app.route('/performance/getDiskIOStats')
+@app.route('/performance/diskIOStats')
 def diskIO_Stats():
     diskIOStats = psutil.disk_io_counters(perdisk=True)
     diskIOStats_json = jsonify(diskIOStats)
     return diskIOStats_json
 
 #System memory usage statistics
-@app.route('/performance/getMemoryUsage')
+@app.route('/performance/memoryUsage')
 def memory_usage():
     memoryUsage = psutil.virtual_memory()
     memoryUsage_json = jsonify(memoryUsage)
     return memoryUsage_json
 
 #CPU times
-@app.route('/performance/getCPUtimes')
+@app.route('/performance/cpuTimes')
 def getCPUtimes():
     cpuTimes = psutil.cpu_times()
     cpuTimes_json = jsonify(cpuTimes)
