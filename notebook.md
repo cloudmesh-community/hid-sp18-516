@@ -39,8 +39,8 @@
 * 2018/02/05 Watched Video on Swagger and Github
 * 2018/02/05 Read some blogs about Swagger on swagger website
 * 2018/02/06 Read the article provided in the section 33.6 Responses from the handbook
-* 2018/02/07 Read the Swagger specs 2.0 docs on the [Swagger website] (https://swagger.io/docs/specification/2-0/basic-structure/) 
-* 2018/02/07 Read another article about Swagger from this [link] (https://drive.google.com/file/d/1QgGrlKJ92dcMXJj0qouF_GjSyYJnJazc/view)
+* 2018/02/07 Read the Swagger specs 2.0 docs on the Swagger website - (https://swagger.io/docs/specification/2-0/basic-structure/) 
+* 2018/02/07 Read another article about Swagger from this link - (https://drive.google.com/file/d/1QgGrlKJ92dcMXJj0qouF_GjSyYJnJazc/view)
 
 # Practice
 * 2018/01/12 Followed the shareLatex video in practice
@@ -58,7 +58,7 @@
 * 2018/01/19 Sorted the bios in google docs
 * 2018/01/16 – 2018/01/19 Researched and contributed to Assignment: Big Data Size on google docs
 * 2018/01/20 – 2018/01/25 Researched and contributed to Assignment: New Technology List 
-* 2018/01/30 - 2018/02/01 - Worked on Assignment: New Technology Abstract
+* 2018/01/30 - 2018/02/01 Worked on Assignment: New Technology Abstract
 * 2018/02/02 Submitted assignment New Technology Abstract in google docs
 * 2018/02/03 Updated the technology abstract assignment for proper citations in google docs
 
