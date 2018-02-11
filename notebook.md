@@ -4,6 +4,7 @@
 * 2018/01/27 Attended online office hours with TA (Vibhata) and Prof. Gregor to get some issues resolved
 * 2018/01/30 Attended online office hours with Prof. Gregor
 * 2018/02/06 Attended online office hours with Prof. Gregor 
+* 2018/02/08 Attended online office hours with TA (Miao)
 
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
@@ -24,7 +25,7 @@
 * 2018/02/06 Read about .gitignore from internet
 * 2018/02/06 Read about differences in pip and pip3 and how to use it in pyenv
 * 2018/02/07 Read topics from internet like Model-view-controller, Flask, MIME types, localhost and other related topics that I was not familiar with
-
+* 2018/02/08 Started reading NIST document
 
 # Theory
 * 2018/01/16 Watched video: Teaching Cloud and Big Data 
@@ -51,6 +52,7 @@
 * 2018/02/03 Updated the routes for nouns in README.md and run.py on github
 * 2018/02/04 Installed Java8 on the Ubuntu machine, and followed all the steps to install Swagger codegen from handbook/swagger website
 * 2018/02/07 Executed step4 of the Swagger codegen process and tried to understand it’s working
+* 2018/02/09 Started working on Assignment - Swagger Cloud and Big Data Rest Service
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
