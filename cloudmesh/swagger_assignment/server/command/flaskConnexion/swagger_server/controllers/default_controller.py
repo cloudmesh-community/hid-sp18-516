@@ -1,3 +1,7 @@
+# I refered the below websites for the Basic Authentication code part:
+# http://flask.pocoo.org/snippets/8/
+# https://github.com/zalando/connexion/blob/master/examples/basicauth/app.py
+
 import connexion
 import six
 
@@ -8,7 +12,6 @@ import subprocess
 from flask import request
 from urlparse import urlparse
 
-import connexion
 import flask
 
 try:
