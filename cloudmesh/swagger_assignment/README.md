@@ -58,7 +58,7 @@ curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/jso
 ## Note :
 * Since I am using POST, the execution is done via curl.
 * Use proper url encoding for commands which have spaces \(for ex: ls -l, uname -a etc\) or other special characters in the curl command.
-* I have only tested this on localhost \(since I did not have any other machine to connect to\).
+* This code has been tested only on localhost as of now \(since I did not have any other machine to connect to\).
 * The username and password for now is `admin` and `secret` respectively. Use the correct base64 encoded string in the header.
 * This is not the final code and it will be improved based on the feedback given.
 
