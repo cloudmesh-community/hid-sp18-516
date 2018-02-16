@@ -75,4 +75,5 @@
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
 * 2018/01/27 Posted FAQ related to pretty print on Piazza
+* 2018/02/12 Posted summary of meeting on Piazza
 * 2018/02/15 Posted FAQ on piazza related to github technology abstract
