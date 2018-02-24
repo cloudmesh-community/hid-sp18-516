@@ -23,6 +23,7 @@ all: dest
 pdflatex:
 	pdflatex abstract
 	bibtex abstract
+	makeindex abstract
 	pdflatex abstract
 	pdflatex abstract
 
