@@ -7,7 +7,8 @@
 * 2018/02/08 Attended online office hours with TA (Miao)
 * 2018/02/12 Attended meeting with Prof. Gregor
 * 2018/02/15 Attended call with Prof. Gregor 
-
+* 2018/02/21 Attended meeting with Prof. Gregor
+* 2018/02/24 Attended meeting with Prof. Gregor and Vibhatha
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
 * 2018/01/12 Read the Part4-Documenting Scientific Research 
@@ -29,6 +30,10 @@
 * 2018/02/07 Read topics from internet like Model-view-controller, Flask, MIME types, localhost and other related topics that I was not familiar with
 * 2018/02/08 Started reading NIST document
 * 2018/02/12 Read the GitIssues section from handbook
+* 2018/02/20 Read Latex chapter from handbook and tutorials from Sharelatex.com
+* 2018/02/20 Installed Tex-live on VM(Ubuntu) and ran lacheck on all tech. abstracts
+* 2018/02/21 Read jabref chapter from handbook
+* 2018/02/21 Installed jabref on Windows, created bib file in bibtex format and uploaded on github
 
 # Theory
 * 2018/01/16 Watched video: Teaching Cloud and Big Data 
@@ -49,6 +54,8 @@
 * 2018/02/13 Watched Cloud computing video PartA
 * 2018/02/14 Watched Container videos: PartA, B, C
 * 2018/02/15 Watched lecture videos on Cloud Computing: B, C, D, E
+* 2018/02/18 Watched Container video: Part D
+* 2018/02/19 - 2018/02/21 Spent time reading about Docker 
 
 # Practice
 * 2018/01/12 Followed the shareLatex video in practice
@@ -60,7 +67,8 @@
 * 2018/02/04 Installed Java8 on the Ubuntu machine, and followed all the steps to install Swagger codegen from handbook/swagger website
 * 2018/02/07 Executed step4 of the Swagger codegen process and tried to understand it’s working
 * 2018/02/09 - 2018/02/14 Submitted Assignment-Swagger Cloud and Big Data Rest Service
-* 2018/02/15 - 2018/02/   Started assignment: Added technology abstracts on github
+* 2018/02/23 - 2018/02/24 Spent time compiling the tex files using the Makefile and debugging the errors
+* 2018/02/24 make tex file issue was resolved when used 'biber' instead of 'bibtex', submitted abstracts
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
@@ -71,6 +79,7 @@
 * 2018/01/30 - 2018/02/01 Worked on Assignment: New Technology Abstract
 * 2018/02/02 Submitted assignment New Technology Abstract in google docs
 * 2018/02/03 Updated the technology abstract assignment for proper citations in google docs
+* 2018/02/15 - 2018/02/24 Started assignment technology abstrats(round2): Improved content, removed unnecessary quotations, ran plagirism check, ran lacheck and chktex on abstracts, created bib file in jabref and submitted on github
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
