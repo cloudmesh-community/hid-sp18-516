@@ -9,6 +9,8 @@
 * 2018/02/15 Attended call with Prof. Gregor 
 * 2018/02/21 Attended meeting with Prof. Gregor
 * 2018/02/24 Attended meeting with Prof. Gregor and Vibhatha
+* 2018/02/26 Attended meeting with Prof. Gregor
+
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
 * 2018/01/12 Read the Part4-Documenting Scientific Research 
@@ -34,6 +36,8 @@
 * 2018/02/20 Installed Tex-live on VM(Ubuntu) and ran lacheck on all tech. abstracts
 * 2018/02/21 Read jabref chapter from handbook
 * 2018/02/21 Installed jabref on Windows, created bib file in bibtex format and uploaded on github
+* 2018/02/25 Added ssh key on Future systems
+* 2018/02/27 Visited previous volumes (proceedings and papers) to check if the technology paper I selected was not already done
 
 # Theory
 * 2018/01/16 Watched video: Teaching Cloud and Big Data 
@@ -55,7 +59,10 @@
 * 2018/02/14 Watched Container videos: PartA, B, C
 * 2018/02/15 Watched lecture videos on Cloud Computing: B, C, D, E
 * 2018/02/18 Watched Container video: Part D
-* 2018/02/19 - 2018/02/21 Spent time reading about Docker 
+* 2018/02/19 - 2018/02/21 Spent time reading about Docker
+* 2018/02/25 Read the Linux chapter from handbook
+* 2018/02/26 - 2018/02/28 Read docker documentation Get Started:Part1-Part6 and practiced the examples
+* 2018/02/28 Read the Docker Overview provided on the Docker website
 
 # Practice
 * 2018/01/12 Followed the shareLatex video in practice
@@ -80,9 +87,11 @@
 * 2018/02/02 Submitted assignment New Technology Abstract in google docs
 * 2018/02/03 Updated the technology abstract assignment for proper citations in google docs
 * 2018/02/15 - 2018/02/24 Started assignment technology abstrats(round2): Improved content, removed unnecessary quotations, ran plagirism check, ran lacheck and chktex on abstracts, created bib file in jabref and submitted on github
+* 2018/02/27 Updated the tech. abstracts, removed advts and added citations for technologies used in the abstracts
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
 * 2018/01/27 Posted FAQ related to pretty print on Piazza
 * 2018/02/12 Posted summary of meeting on Piazza
 * 2018/02/15 Posted FAQ on piazza related to github technology abstract
+* 2018/02/26 Posted a FAQ on Piazza on docker
