@@ -51,8 +51,14 @@ curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/jso
 ```
 
 ```
-curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/ssh/uname%20%2Da
+curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/uname%20%2Da
 "Linux spathan-VirtualBox 4.13.0-32-generic #35~16.04.1-Ubuntu SMP Thu Jan 25 10:13:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux\n"
+```
+
+* When you do not give the Authorization header, it throws an error saying: ``You have to login with proper credentials''
+```
+curl -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/ls%20%2Dl
+You have to login with proper credentials
 ```
 
 ## Note :
