@@ -11,6 +11,7 @@ swagger_server.egg-info/entry_points.txt
 swagger_server.egg-info/requires.txt
 swagger_server.egg-info/top_level.txt
 swagger_server/controllers/__init__.py
+swagger_server/controllers/auth_util.py
 swagger_server/controllers/default_controller.py
 swagger_server/models/__init__.py
 swagger_server/models/base_model_.py
