@@ -18,5 +18,8 @@ run:
 test:
 	curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/ls%20%2Dl
             
+stop:
+	ps -ef | grep swagger | grep -v "grep"| awk '{print $$2}' | xargs kill -9
+
 clean:
 	rm -rf $(DESTDIR)
