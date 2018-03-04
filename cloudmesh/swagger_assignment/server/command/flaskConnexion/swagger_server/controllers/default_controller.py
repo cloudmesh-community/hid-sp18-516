@@ -49,27 +49,18 @@ def command_post(command, entities=None):  # noqa: E501
     """
     user = entities['userName']
     host = entities['hostName']
-    #print("The command is:", command)
-    #print("The entities are:", entities)
     splitCom = command.split()
     splitCom.insert(0, 'ssh')
     splitCom.insert(1, '-t')
     splitCom.insert(2, user+'@'+host)
-    #splitCom.insert(3, '-u')
-    #splitCom.insert(2, entities['userName'])
-    #print("type of splitcom", splitCom)
-    #print("splitCom output", splitCom)
-
+ 
     if connexion.request.is_json:
         entities = ENTITIES.from_dict(connexion.request.get_json())  # noqa: E501
     base_url = request.url_root
     o = urlparse(base_url)
     if o.netloc == "127.0.0.1:8080" or o.netloc == "localhost:8080":
         s = subprocess.check_output(splitCom)
-        #s = Popen(splitCom, stdout=PIPE, stderr=PIPE)
         output = s.split('\n')
-     #   result = json.dumps(s)
         return output
-       # return result
     else:
         return "Error: Connections only allowed from localhost"
