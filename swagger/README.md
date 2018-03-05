@@ -12,7 +12,7 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * POST operation has been implemented to post the command, username and hostname
 * The server-side code has been generated using Swagger Codegen
 * Modules like `subprocess` and `flask` have been used for the actual implementation
-* The security credentials are stored in the security.yaml file
+* The security credentials are stored in the `security.yaml` file
 
 ## Execution Details :
 * Make sure you have swagger-codegen-cli.jar installed in your working directory
