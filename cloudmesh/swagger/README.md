@@ -37,7 +37,7 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 ```
 curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/ls%20%2Dl
 
-`Output:`
+Output:
 [
   "total 44",
   "drwxrwxr-x 4 spathan spathan 4096 Feb 14 19:23 build",
@@ -58,7 +58,7 @@ curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/jso
 ```
 curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/uname%20%2Da
 
-`Output:`
+Output:
 "Linux spathan-VirtualBox 4.13.0-32-generic #35~16.04.1-Ubuntu SMP Thu Jan 25 10:13:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux\n"
 ```
 
