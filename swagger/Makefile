@@ -1,4 +1,4 @@
-JARFILE=swagger-codegen-cli.jar
+SWAGGERCODEGEN=java -jar swagger-codegen-cli.jar
 YAMLFILE1=localhost.yaml
 YAMLFILE2=security.yaml
 DESTDIR=server/
@@ -9,7 +9,7 @@ dest:
 	mkdir $(CONFIGDIR)
 
 service: dest
-	java -jar $(JARFILE) generate -i $(YAMLFILE1) -l python-flask -o $(DESTDIR) -D supportPython2=true
+	$(SWAGGERCODEGEN) generate -i $(YAMLFILE1) -l python-flask -o $(DESTDIR) -D supportPython2=true
 	cp -r *.py $(DESTDIR)/swagger_server/controllers
 	cp -r $(YAMLFILE2) $(CONFIGDIR)
 
