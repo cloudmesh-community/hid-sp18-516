@@ -10,6 +10,8 @@
 * 2018/02/21 Attended meeting with Prof. Gregor
 * 2018/02/24 Attended meeting with Prof. Gregor and Vibhatha
 * 2018/02/26 Attended meeting with Prof. Gregor
+* 2018/03/04 Attended meeting with Tyler
+* 2018/03/05 Attended meeting with Prof. Gregor
 
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
@@ -38,6 +40,7 @@
 * 2018/02/21 Installed jabref on Windows, created bib file in bibtex format and uploaded on github
 * 2018/02/25 Added ssh key on Future systems
 * 2018/02/27 Visited previous volumes (proceedings and papers) to check if the technology paper I selected was not already done
+* 2018/03/02 Checked out the technology paper directory, set up the environment and read the paper instructions pdf
 
 # Theory
 * 2018/01/16 Watched video: Teaching Cloud and Big Data 
@@ -76,6 +79,10 @@
 * 2018/02/09 - 2018/02/14 Submitted Assignment-Swagger Cloud and Big Data Rest Service
 * 2018/02/23 - 2018/02/24 Spent time compiling the tex files using the Makefile and debugging the errors
 * 2018/02/24 make tex file issue was resolved when used 'biber' instead of 'bibtex', submitted abstracts
+* 2018/03/01 Worked on Swagger enhancement, as suggested in this [Piazza post!] (https://piazza.com/class/jbkvbp3ed3m2ez?cid=248)
+* 2018/03/03 Read about Makefiles and created a Makefile for Swagger assignment
+* 2018/03/04 Cleaned up the Swagger directory on github 
+* 2018/03/04 Updated makefile with some changes, got make clean working
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
@@ -88,6 +95,8 @@
 * 2018/02/03 Updated the technology abstract assignment for proper citations in google docs
 * 2018/02/15 - 2018/02/24 Started assignment technology abstrats(round2): Improved content, removed unnecessary quotations, ran plagirism check, ran lacheck and chktex on abstracts, created bib file in jabref and submitted on github
 * 2018/02/27 Updated the tech. abstracts, removed advts and added citations for technologies used in the abstracts
+* 2018/03/02 Did some research on the technology paper that I am going to write
+* 2018/03/05 Started writing Technology Paper
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
