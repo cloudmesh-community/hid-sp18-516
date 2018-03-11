@@ -20,11 +20,11 @@ start:
 
 test:
 	echo "Executing curl command1 on VM2:"
-	curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102"}' http://localhost:8080/api/ls%20%2Dl
+	curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102"}' http://localhost:8080/cloudmesh/localhost/hid-sp18-516/ls%20%2Dl
 	echo "Executing curl command2 on VM2:"
-	curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102"}' http://localhost:8080/api/uname%20%2Da
+	curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102"}' http://localhost:8080/cloudmesh/localhost/hid-sp18-516/uname%20%2Da
 	echo "Executing curl command3 without Basic Auth:"
-	curl -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102"}' http://localhost:8080/api/ls%20%2Dl
+	curl -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102"}' http://localhost:8080/cloudmesh/localhost/hid-sp18-516/ls%20%2Dl
             
 stop:
 	ps -ef | grep swagger | grep -v "grep"| awk '{print $$2}' | xargs kill -9
