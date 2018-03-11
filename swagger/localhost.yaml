@@ -15,7 +15,7 @@ securityDefinitions:
 security:
   - basicAuth: []
 host: "localhost:8080"
-basePath: "/api"
+basePath: "/cloudmesh/localhost/hid-sp18-516"
 schemes:
   - "http"
 consumes: 
