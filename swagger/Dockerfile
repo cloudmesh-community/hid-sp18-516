@@ -45,6 +45,6 @@ EXPOSE 8080
 RUN make service
 
 #RUN make start
-ENTRYPOINT["make"]
-CMD ["start"]
+#ENTRYPOINT["make"]
+CMD ["make start"]
 
