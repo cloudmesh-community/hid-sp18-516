@@ -38,6 +38,7 @@ RUN wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/sw
 #RUN cp *.py server/swagger_server/controllers
 #RUN cp security.yaml ~/.cloudmesh/
 #RUN cd server && pip install -r requirements.txt && python setup.py install
+#RUN pip install -r requirements.txt
 
 EXPOSE 8080
 
@@ -46,5 +47,5 @@ RUN make service
 
 #RUN make start
 #ENTRYPOINT["make"]
-CMD ["make start"]
+#CMD ["make", "start"]
 
