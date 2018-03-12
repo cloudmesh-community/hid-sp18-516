@@ -34,18 +34,12 @@ RUN git clone https://github.com/cloudmesh-community/hid-sp18-516.git
 WORKDIR /hid-sp18-516/swagger
 
 RUN wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar -O swagger-codegen-cli.jar
-#RUN java -jar swagger-codegen-cli.jar generate -i localhost.yaml -l python-flask -o server -D supportPython2=true
-#RUN cp *.py server/swagger_server/controllers
-#RUN cp security.yaml ~/.cloudmesh/
-#RUN cd server && pip install -r requirements.txt && python setup.py install
-#RUN pip install -r requirements.txt
+
+RUN pip install -r requirements.txt
 
 EXPOSE 8080
 
-#CMD cd /hid-sp18-516/swagger/server && pip install -r requirements.txt
 RUN make service
 
-#RUN make start
-#ENTRYPOINT["make"]
-#CMD ["make", "start"]
+CMD ["make", "start"]
 
