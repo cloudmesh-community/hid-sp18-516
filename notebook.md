@@ -40,7 +40,8 @@
 * 2018/02/21 Installed jabref on Windows, created bib file in bibtex format and uploaded on github
 * 2018/02/25 Added ssh key on Future systems
 * 2018/02/27 Visited previous volumes (proceedings and papers) to check if the technology paper I selected was not already done
-* 2018/03/02 Checked out the technology paper directory, set up the environment and read the paper instructions pdf
+* 2018/03/02 Checked out the technology paper directory, set up the environment and read the paper instructions pdf\
+* 2018/03/10 Read about docopt overview
 
 # Theory
 * 2018/01/16 Watched video: Teaching Cloud and Big Data 
@@ -66,6 +67,9 @@
 * 2018/02/25 Read the Linux chapter from handbook
 * 2018/02/26 - 2018/02/28 Read docker documentation Get Started:Part1-Part6 and practiced the examples
 * 2018/02/28 Read the Docker Overview provided on the Docker website
+* 2018/03/10 Started reading Chameleon cloud from Handbook
+* 2018/03/10 Read cloudmesh command shell chapter from handbook
+
 
 # Practice
 * 2018/01/12 Followed the shareLatex video in practice
@@ -83,6 +87,11 @@
 * 2018/03/03 Read about Makefiles and created a Makefile for Swagger assignment
 * 2018/03/04 Cleaned up the Swagger directory on github 
 * 2018/03/04 Updated makefile with some changes, got make clean working
+* 2018/03/07 Created another VM, and set up passwordless SSH logins between the two VMs for Swagger assignment
+* 2018/03/08 Worked on creating a Dockerfile/ didn’t work, failure at make start
+* 2018/03/10 Installed CMD5 on VM Ubuntu and read the usage of some commands
+* 2018/03/11 Worked on Dockerfile, resolved the errors and got to run make service and make start using Dockerfile
+* 2018/03/11 Tried to test Swagger service running on container, didn't work
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
@@ -97,6 +106,7 @@
 * 2018/02/27 Updated the tech. abstracts, removed advts and added citations for technologies used in the abstracts
 * 2018/03/02 Did some research on the technology paper that I am going to write
 * 2018/03/05 Started writing Technology Paper
+* 2018/03/08 - 2018/03/09 Worked on Technology Paper
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
