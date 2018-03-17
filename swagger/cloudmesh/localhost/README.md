@@ -76,6 +76,6 @@ You have to login with proper credentials
 * If you do not have another VM setup for test, you can test on your own VM as hostname as `localhost` and username as `<yuor-username>`
 
 ## Note :
-* Since I am using POST, the execution is done via curl. It takes 3 arguments: hostname, username and command.
+* Since I am using POST, the execution is done via curl. It takes 3 arguments: `hostname`, `username` and `command`.
 * Use the correct base64 encoded string in the header for the authentication.
 * If you use `localhost` as hostname for testing, it waits for the authentication on the server-side to execute the command, make sure to enter your password on the server-side.
