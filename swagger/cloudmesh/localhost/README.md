@@ -13,16 +13,18 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * The server-side code has been generated using Swagger Codegen
 * Modules like `subprocess` and `flask` have been used for the actual implementation
 * The security credentials are stored in the `security.yaml` file
+* Basic Authentication code is stored in `auth_util.py` file
+* This servie has been tested with 2 VMs. The second VM was set to passwordless SSH. VM1 does ssh to VM2 and executes the specified command on VM2.
 
 ## Execution Details :
 * Make sure you have swagger-codegen-cli.jar installed in your working directory
 * git clone the swagger directory
 * On your terminal, using the Makefile provided run the following commands:
   * `make service`
-  * `make run`
+  * `make start`
   * You should see a message like this:
   ``` 
-  Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+  Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
   ```
 * On another terminal to test the service, run:
     * `make test`
@@ -33,48 +35,47 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * To clean the directories, run:
   * `make clean`
   
+* To create a docker image and build the image, simple run:
+  * `make container`
+  
 ## Examples that you can use to test the service, just add them in the `test` target in the Makefile:
 ```
-curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/ls%20%2Dl
+curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102", "command": "ls -l"}' http://localhost:8080/cloudmesh/localhost
 
 Output:
 [
   "total 44",
-  "drwxrwxr-x 4 spathan spathan 4096 Feb 14 19:23 build",
-  "drwxrwxr-x 2 spathan spathan 4096 Feb 14 19:23 dist",
-  "-rw-rw-r-- 1 spathan spathan  244 Feb 14 19:21 Dockerfile",
-  "-rw-rw-r-- 1 spathan spathan 1662 Feb 14 19:21 git_push.sh",
-  "-rw-rw-r-- 1 spathan spathan 1111 Feb 14 19:21 README.md",
-  "-rw-rw-r-- 1 spathan spathan   84 Feb 14 19:21 requirements.txt",
-  "-rw-rw-r-- 1 spathan spathan  829 Feb 14 19:21 setup.py",
-  "drwxrwxr-x 6 spathan spathan 4096 Feb 14 19:23 swagger_server",
-  "drwxrwxr-x 2 spathan spathan 4096 Feb 14 19:23 swagger_server.egg-info",
-  "-rw-rw-r-- 1 spathan spathan   90 Feb 14 19:21 test-requirements.txt",
-  "-rw-rw-r-- 1 spathan spathan  149 Feb 14 19:21 tox.ini",
-  ""
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Desktop",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Documents",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Downloads",
+  "-rw-r--r-- 1 sheena sheena 8980 Mar  6 23:39 examples.desktop",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Music",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Pictures",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Public",
+  "-rw-rw-r-- 1 sheena sheena    0 Mar  7 01:27 saifwashere",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Templates",
+  "drwxr-xr-x 2 sheena sheena 4096 Mar  7 00:02 Videos"
 ]
 ```
 
 ```
-curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/uname%20%2Da
+curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102", "command": "uname -a"}' http://localhost:8080/cloudmesh/localhost
 
 Output:
-"Linux spathan-VirtualBox 4.13.0-32-generic #35~16.04.1-Ubuntu SMP Thu Jan 25 10:13:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux\n"
+[
+  "Linux sheena-VirtualBox 4.10.0-28-generic #32~16.04.2-Ubuntu SMP Thu Jul 20 10:19:48 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux"
+]
 ```
 
 * When you do not give the Authorization header, it throws an error saying: `You have to login with proper credentials`
 ```
-curl -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost"}' http://localhost:8080/api/ls%20%2Dl
+curl -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hostName": "localhost", "command": "uname -a"}' http://localhost:8080/cloudmesh/localhost
 You have to login with proper credentials
 ```
 
-## Note :
-* Since I am using POST, the execution is done via curl.
-* Use proper url encoding for commands which have spaces \(for ex: ls -l, uname -a etc\) or other special characters in the curl command.
-* This code has been tested only on localhost as of now \(since I did not have any other machine to connect to\).
-* Use the correct base64 encoded string in the header for the authentication.
-* Since I'm using ssh to connect to the hostname, it waits for the authentication to execute the command, make sure to enter your password on the server-side.
+* If you do not have another VM setup for test, you can test on your own VM as hostname as `localhost` and username as `<yuor-username>`
 
-## TODO :
-* passwordless ssh
-* Generate Client-side code.
+## Note :
+* Since I am using POST, the execution is done via curl. It takes 3 arguments: hostname, username and command.
+* Use the correct base64 encoded string in the header for the authentication.
+* If you use `localhost` as hostname for testing, it waits for the authentication on the server-side to execute the command, make sure to enter your password on the server-side.
