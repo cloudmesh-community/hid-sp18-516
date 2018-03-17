@@ -1,0 +1,61 @@
+swagger: "2.0"
+info:
+  title: "Localhost(ssh) API"
+  description: "A simple service to execute commands on the specified host. This API requires Basic Authentication"
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+  contact: 
+    name: "Cloudmesh REST service"
+  license: 
+    name: "Apache"
+securityDefinitions:
+  basicAuth:
+    type: "basic"
+# To apply Basic auth to the whole API:
+security:
+  - basicAuth: []
+host: "127.0.0.1:8080"
+basePath: "/cloudmesh"
+schemes:
+  - "http"
+consumes: 
+  - "application/json"
+produces: 
+  - "application/json"
+paths:
+  /localhost:
+    post:
+      # To apply Basic auth to an individual operation:
+      security:
+        - basicAuth: []
+      description: "Executes command on the specified host"
+      operation_id: app.post_command
+      parameters:
+        - in: body
+          name: entities
+          description: "The username, hostname and command as payload"
+          schema:
+            $ref: '#/definitions/ENTITIES'
+      responses:
+        200:
+          description: "command was executed successfully."
+        400:
+          description: "Bad request."
+        401:
+          description: "Authorization information is missing or invalid."
+        404:
+          description: "Not Found."
+definitions:
+  ENTITIES:
+    type: "object"
+    required:
+      - "userName"
+      - "hostName"
+      - "command"
+    properties:
+      userName:
+        type: "string"
+      hostName:
+        type: "string"
+      command:
+        type: "string"
