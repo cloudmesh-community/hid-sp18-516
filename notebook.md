@@ -12,6 +12,7 @@
 * 2018/02/26 Attended meeting with Prof. Gregor
 * 2018/03/04 Attended meeting with Tyler
 * 2018/03/05 Attended meeting with Prof. Gregor
+* 2018/03/12 Attended meeting with Prof. Gregor
 
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
@@ -69,6 +70,8 @@
 * 2018/02/28 Read the Docker Overview provided on the Docker website
 * 2018/03/10 Started reading Chameleon cloud from Handbook
 * 2018/03/10 Read cloudmesh command shell chapter from handbook
+* 2018/03/17 Read about Openstack as part research for tutorial
+* 2018/03/17 - 2018/03/19 Read the remaining part of Chameleon cloud chapter
 
 
 # Practice
@@ -92,6 +95,9 @@
 * 2018/03/10 Installed CMD5 on VM Ubuntu and read the usage of some commands
 * 2018/03/11 Worked on Dockerfile, resolved the errors and got to run make service and make start using Dockerfile
 * 2018/03/11 Tried to test Swagger service running on container, didn't work
+* 2018/03/15 Spent time resolving latex compile errors for Technology abstract, compilation failed
+* 2018/03/16 Worked on Swagger assignment, made changes suggested by Prof.
+
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
@@ -107,6 +113,7 @@
 * 2018/03/02 Did some research on the technology paper that I am going to write
 * 2018/03/05 Started writing Technology Paper
 * 2018/03/08 - 2018/03/09 Worked on Technology Paper
+* 2018/03/12 - 2018/03/15 Worked on Technology Paper and submitted on 15th March
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
@@ -114,3 +121,4 @@
 * 2018/02/12 Posted summary of meeting on Piazza
 * 2018/02/15 Posted FAQ on piazza related to github technology abstract
 * 2018/02/26 Posted a FAQ on Piazza on docker
+* 2018/03/03/15 Posted a Note to Instructors for Latex compilation errors in tech paper
