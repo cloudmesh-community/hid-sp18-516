@@ -7,8 +7,8 @@ DESTDIR=server/
 CONFIGDIR=~/.cloudmesh/
 
 dest:
-	mkdir $(DESTDIR)
-	mkdir $(CONFIGDIR)
+	mkdir -p $(DESTDIR)
+	mkdir -p $(CONFIGDIR)
 
 service: dest
 	$(SWAGGERCODEGEN) generate -i $(YAMLFILE1) -l python-flask -o $(DESTDIR) -D supportPython2=true
