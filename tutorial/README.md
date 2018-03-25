@@ -58,15 +58,20 @@ The next step is to copy the public keys on one instance into the authorized_key
 Once this is done, the authorized_keys file on one instance should have the public keys of all the other instances, including the public key of your own VM (since you had added that earlier while creating the instance).
 
 Now, you should be able to ssh between these instances using either floatingIP or the PrivateIP. But be sure to provide the private key of the instance that you are logging in from. Run the following commands to verify:
-  * First login to one of instance1 using `ssh cc@<floatingIPofInstance1>` from your own VM.
-  * Now ssh to another instance, either 2 or 3 using `ssh -i <privateKeyofInstance1:id_rsa_01> cc@<floatingIPofInstance2>`
+  * First login to one of the instance e.g. instance1 using `ssh cc@<floatingIPofInstance1>` from your own VM.
+  * Now ssh to another instance from instance1, either 2 or 3 using:
+  
+  `ssh -i <privateKeyofInstance1:e.g.id_rsa_01> cc@<floatingIPofInstance2>`
+  
   * The prompt should now change to instance2. 
   * Try to ssh from instance1 to instance3, from instance2 to instance1/instance3 or from instance3 to instance1/instance2. 
   * It should login in successfully to these instances.
-  * Instead of providing the private_key, you can avoid that by starting ssh_agent process and then adding the private key using ssh add. To do this run the following commands on all instances with the correct private_key name:
+  * Instead of providing the private_key, you can avoid that by starting ssh_agent process and then adding the private key using ssh add. To do this, run the following commands on all instances with the correct private_key name:
   
   `eval "$(ssh-agent -s)"`
   
   `ssh-add ~/.ssh/id_rsa`
   
-Our goal was to set up a cluster using the instances created on Openstack. Now you are able to successfully login to each of these instances and the instances are also able to login to each other. 
+Now you should be able to login from one instance to another using ssh and without providing the private key.
+  
+Our goal was to set up a cluster using the instances created on Openstack. Now you are able to successfully login to each of these instances and the login from one instance to another is also possible. 
