@@ -1,7 +1,7 @@
 # OpenStack Cluster Setup 
 
 ## Overview
-OpenStack is an Infrastructure as a Service platform that allows to create and manage virtual environments. It is a free and opensource software for cloud computing, that controls large pools of compute, storage and networking resources throughout a datacenter managing it either via dashboard or through the OpenStack API<https://www.openstack.org/software/>~\cite{hid-sp18-516-www-openstack}. The OpenStack software can be easily accessed via the OpenStack Web Interface called `Horizon` provided by Chameleon. Chameleon provides an installation of OpenStack version 2015.1 (Kilo) using the KVM virtualization technology<https://www.chameleoncloud.org/docs/user-guides/openstack-kvm-user-guide/>~\cite{hid-sp18-516-www-chameleon}. 
+OpenStack is an Infrastructure as a Service platform that allows to create and manage virtual environments. It is a free and opensource software for cloud computing, that controls large pools of compute, storage and networking resources throughout a datacenter managing it either via dashboard or through the OpenStack API<https://www.openstack.org/software/> \cite{hid-sp18-516-www-openstack}. The OpenStack software can be easily accessed via the OpenStack Web Interface called `Horizon` provided by Chameleon. Chameleon provides an installation of OpenStack version 2015.1 (Kilo) using the KVM virtualization technology<https://www.chameleoncloud.org/docs/user-guides/openstack-kvm-user-guide/> \cite{hid-sp18-516-www-chameleon}. 
 
 In this tutorial, we are going to create some instances using Openstack Command Line Interface (CLI) and create a cluster from those instances. For the purpose of this tutorial, we will just create 3 instances to show how a cluster can be set-up. 
 
