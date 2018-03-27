@@ -41,8 +41,9 @@ def localhost_post(entities=None):  # noqa: E501
     base_url = request.url_root
     parse_url = urlparse(base_url)
     if parse_url.netloc == "127.0.0.1:8080" or parse_url.netloc == "localhost:8080":
-        s = "Hello World!"
+        #s = "Hello World!"
         #s = subprocess.check_output('ssh '+user+'@'+host+' '+command, shell=True).strip().split('\n')
+        s = subprocess.check_output(command, shell=True).strip().split('\n')
         #s = subprocess.check_output(command).strip().split('\n')
         return s
     else:
