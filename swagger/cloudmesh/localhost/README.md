@@ -39,12 +39,16 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
   * `make container`
   
   * To test the service on the docker container, first you need to login to the container using the command:
+  
   `sudo docker exec -it <containerID> bash`
   
   * Then execute the following curl command on the shell of the container;
   ```
   curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "<username>", "hostName": "localhost", "command": "ls -l"}' http://localhost:8080/cloudmesh/localhost
   ```
+  * To stop the running container, first `exit` the container that you were logged into and simply run the following command:
+  
+  `sudo docker stop $(sudo docker ps -a -q -f status=running)`
   
 ## Examples that you can use to test the service, just add them in the `test` target in the Makefile:
 ```
