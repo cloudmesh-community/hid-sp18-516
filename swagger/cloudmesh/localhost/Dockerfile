@@ -34,7 +34,7 @@ RUN python -m ensurepip
 
 RUN git clone https://github.com/cloudmesh-community/hid-sp18-516.git
 
-WORKDIR /hid-sp18-516/swagger
+WORKDIR /hid-sp18-516/swagger/cloudmesh/localhost
 
 RUN wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar -O swagger-codegen-cli.jar
 
