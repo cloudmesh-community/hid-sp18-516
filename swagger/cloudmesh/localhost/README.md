@@ -38,6 +38,14 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * To create a docker image and build the image, simple run:
   * `make container`
   
+  * To test the service on the docker container, first you need to login to the container using the command:
+  `sudo docker exec -it <containerID> bash`
+  
+  * Then execute the following curl command on the shell of the container;
+  ```
+  curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "<username>", "hostName": "localhost", "command": "ls -l"}' http://localhost:8080/cloudmesh/localhost
+  ```
+  
 ## Examples that you can use to test the service, just add them in the `test` target in the Makefile:
 ```
 curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "sheena", "hostName": "192.168.56.102", "command": "ls -l"}' http://localhost:8080/cloudmesh/localhost
@@ -73,7 +81,7 @@ curl -H "Content-Type:application/json" -X POST -d '{"userName": "spathan", "hos
 You have to login with proper credentials
 ```
 
-* If you do not have another VM setup for test, you can test on your own VM as hostname as `localhost` and username as `<yuor-username>`
+* If you do not have another VM setup for test, you can test on your own VM as hostname as `localhost` and username as `<your-username>`
 
 ## Note :
 * Since I am using POST, the execution is done via curl. It takes 3 arguments: `hostname`, `username` and `command`.
