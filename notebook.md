@@ -13,6 +13,8 @@
 * 2018/03/04 Attended meeting with Tyler
 * 2018/03/05 Attended meeting with Prof. Gregor
 * 2018/03/12 Attended meeting with Prof. Gregor
+* 2018/03/24 Attended meeting with Vibhata
+* 2018/03/26 Attended Project meeting with Prof. Gregor
 
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
@@ -72,6 +74,7 @@
 * 2018/03/10 Read cloudmesh command shell chapter from handbook
 * 2018/03/17 Read about Openstack as part research for tutorial
 * 2018/03/17 - 2018/03/19 Read the remaining part of Chameleon cloud chapter
+* 2018/03/20 Watched Cloud Computing Lecture Videos I, J, K. 
 
 
 # Practice
@@ -97,7 +100,8 @@
 * 2018/03/11 Tried to test Swagger service running on container, didn't work
 * 2018/03/15 Spent time resolving latex compile errors for Technology abstract, compilation failed
 * 2018/03/16 Worked on Swagger assignment, made changes suggested by Prof.
-
+* 2018/03/20 fixed the compilation errors of Technology paper 
+* 2018/03/26 Worked on testing Swagger service on container, after making some changes it worked. 
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
@@ -114,6 +118,7 @@
 * 2018/03/05 Started writing Technology Paper
 * 2018/03/08 - 2018/03/09 Worked on Technology Paper
 * 2018/03/12 - 2018/03/15 Worked on Technology Paper and submitted on 15th March
+* 2018/03/21 - 2018/03/25 Worked on Tutorial and uploaded on Github
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
