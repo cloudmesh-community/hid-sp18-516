@@ -41,3 +41,7 @@ container:
 	sudo docker build -t cloudmesh-localhost .
 	sudo docker run -p 8080:8080 cloudmesh-localhost 
 
+osx:
+	docker build -t cloudmesh-localhost .
+	docker run -p 8080:8080 cloudmesh-localhost 
+
