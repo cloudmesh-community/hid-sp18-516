@@ -258,11 +258,17 @@ Our goal was to set up a cluster using the instances created on Openstack. Now y
 
 ## References
 <https://docs.openstack.org/python-openstackclient/pike/>
+
 <https://docs.openstack.org/mitaka/cli-reference/common/cli_install_openstack_command_line_clients.html#install-the-openstack-client>
+
 <https://docs.openstack.org/mitaka/cli-reference/common/cli_set_environment_variables_using_openstack_rc.html>
+
 <https://docs.openstack.org/python-openstackclient/pike/cli/command-objects/floating-ip.html>
+
 <https://docs.openstack.org/releasenotes/python-novaclient/queens.html>
+
 <https://www.tecmint.com/create-deploy-and-launch-virtual-machines-in-openstack/>
+
 <https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/>
 
 
