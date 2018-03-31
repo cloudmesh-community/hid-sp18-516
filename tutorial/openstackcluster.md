@@ -1,12 +1,12 @@
 # OpenStack Cluster Setup 
 
 ## Overview
-OpenStack is an Infrastructure as a Service platform that allows to create and manage virtual environments. It is a free and opensource software for cloud computing, that controls large pools of compute, storage and networking resources throughout a datacenter managing it either via dashboard or through the OpenStack API<https://www.openstack.org/software/> \cite{hid-sp18-516-www-openstack}. The OpenStack software can be easily accessed via the OpenStack Web Interface called `Horizon` provided by Chameleon. Chameleon provides an installation of OpenStack version 2015.1 (Kilo) using the KVM virtualization technology<https://www.chameleoncloud.org/docs/user-guides/openstack-kvm-user-guide/> \cite{hid-sp18-516-www-chameleon}. 
+OpenStack is an Infrastructure as a Service platform that allows to create and manage virtual environments. It is a free and opensource software for cloud computing, that controls large pools of compute, storage and networking resources throughout a datacenter managing it either via dashboard or through the OpenStack API~\cite{hid-sp18-516-www-openstack}. The OpenStack software can be easily accessed via the OpenStack Web Interface called `Horizon` provided by Chameleon. Chameleon provides an installation of OpenStack version 2015.1 (Kilo) using the KVM virtualization technology~\cite{hid-sp18-516-www-chameleon}. 
 
 In this tutorial, we are going to create some instances using Openstack Command Line Interface (CLI) and create a cluster from those instances. For the purpose of this tutorial, we will just create 3 instances to show how a cluster can be set-up. 
 
 ## Creating the RC File
-~\cite{hid-sp18-516-handbook}The first step is to create the OpenStack RC. This can be done either via the editor or via GUI. We will see how to create via the editor. 
+~\cite{hid-sp18-516-las17handbook}The first step is to create the OpenStack RC. This can be done either via the editor or via GUI. We will see how to create via the editor. 
 
   * Open a terminal on your VM and create a directory 
   
@@ -255,3 +255,15 @@ Now, you should be able to ssh between these instances using either floatingIP o
 Now you should be able to login from one instance to another using ssh and without providing the private key.
   
 Our goal was to set up a cluster using the instances created on Openstack. Now you are able to successfully login to each of these instances and the login from one instance to another is also possible. 
+
+## References
+<https://docs.openstack.org/python-openstackclient/pike/>
+<https://docs.openstack.org/mitaka/cli-reference/common/cli_install_openstack_command_line_clients.html#install-the-openstack-client>
+<https://docs.openstack.org/mitaka/cli-reference/common/cli_set_environment_variables_using_openstack_rc.html>
+<https://docs.openstack.org/python-openstackclient/pike/cli/command-objects/floating-ip.html>
+<https://docs.openstack.org/releasenotes/python-novaclient/queens.html>
+<https://www.tecmint.com/create-deploy-and-launch-virtual-machines-in-openstack/>
+<https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/>
+
+
+
