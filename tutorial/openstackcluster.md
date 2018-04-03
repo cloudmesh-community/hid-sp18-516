@@ -6,7 +6,7 @@ OpenStack is an Infrastructure as a Service platform that allows to create and m
 In this tutorial, we are going to create some instances using Openstack Command Line Interface (CLI) and create a cluster from those instances. For the purpose of this tutorial, we will just create 3 instances to show how a cluster can be set-up. 
 
 ## Creating the RC File
-~\cite{hid-sp18-516-las17handbook}The first step is to create the OpenStack RC. This can be done either via the editor or via GUI. We will see how to create via the editor. 
+The first step is to create the OpenStack RC. This can be done either via the editor or via GUI. We will see how to create via the editor~\cite{hid-sp18-516-las17handbook}. 
 
   * Open a terminal on your VM and create a directory 
   
