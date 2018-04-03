@@ -24,7 +24,7 @@ endif
 #	make -f Makefile check >> report-latex.log 2>&1
 
 all:
-	cp ../../hid-sample/paper/Makefile .
+	# cp ../../hid-sample/paper/Makefile .
 	make -f Makefile generate
 
 generate: clean iureport
