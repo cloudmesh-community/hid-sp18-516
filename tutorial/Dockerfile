@@ -32,12 +32,12 @@ RUN pyenv install 2.7.14
 RUN pyenv global 2.7.14
 RUN python -m ensurepip
 
-RUN git clone -b master https://github.com/cloudmesh-community/hid-sp18-516.git
+RUN git clone https://github.com/cloudmesh-community/hid-sp18-516.git
 
 WORKDIR /hid-sp18-516/tutorial
 
-CMD ["source", "cc-openrc.sh"]
 #COPY cc-openrc.sh /hid-sp18-516/tutorial/
+RUN wget https://github.com/cloudmesh-community/hid-sp18-516/tree/master/tutorial/cc-openrc.sh 
 
 # install openstack cli and nova for python
 RUN pip install python-openstackclient
