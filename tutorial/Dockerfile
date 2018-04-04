@@ -34,8 +34,9 @@ RUN python -m ensurepip
 
 RUN git clone https://github.com/cloudmesh-community/hid-sp18-516.git
 
-WORKDIR /app
+WORKDIR /hid-sp18-516/tutorial
 
+CMD ["source", "cc-openrc.sh"]
 #COPY cc-openrc.sh /hid-sp18-516/tutorial/
 
 # install openstack cli and nova for python
