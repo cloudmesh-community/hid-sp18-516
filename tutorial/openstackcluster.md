@@ -1,12 +1,24 @@
 # OpenStack Cluster Setup 
 
 ## Overview
-OpenStack is an Infrastructure as a Service platform that allows to create and manage virtual environments. It is a free and opensource software for cloud computing, that controls large pools of compute, storage and networking resources throughout a datacenter managing it either via dashboard or through the OpenStack API~\cite{hid-sp18-516-www-openstack}. The OpenStack software can be easily accessed via the OpenStack Web Interface called `Horizon` provided by Chameleon. Chameleon provides an installation of OpenStack version 2015.1 (Kilo) using the KVM virtualization technology~\cite{hid-sp18-516-www-chameleon}. 
+OpenStack is an Infrastructure as a Service platform that allows to create and
+manage virtual environments. It is a free and opensource software for cloud
+computing, that controls large pools of compute, storage and networking
+resources throughout a datacenter managing it either via dashboard or through
+the OpenStack API~\cite{hid-sp18-516-www-openstack}. The OpenStack software can
+be easily accessed via the OpenStack Web Interface called `Horizon` provided by
+Chameleon. Chameleon provides an installation of OpenStack version 2015.1 (Kilo)
+using the KVM virtualization technology~\cite{hid-sp18-516-www-chameleon}. 
 
-In this tutorial, we are going to create some instances using Openstack Command Line Interface (CLI) and create a cluster from those instances. For the purpose of this tutorial, we will just create 3 instances to show how a cluster can be set-up. 
+In this tutorial, we are going to create some instances using Openstack Command
+Line Interface (CLI) and create a cluster from those instances. For the purpose
+of this tutorial, we will just create 3 instances to show how a cluster can be
+set-up. 
 
 ## Creating the RC File
-The first step is to create the OpenStack RC. This can be done either via the editor or via GUI. We will see how to create via the editor~\cite{hid-sp18-516-las17handbook}. 
+The first step is to create the OpenStack RC. This can be done either via the
+editor or via GUI. We will see how to create via the
+editor~\cite{hid-sp18-516-las17handbook}. 
 
   * Open a terminal on your VM and create a directory 
   
@@ -14,7 +26,9 @@ The first step is to create the OpenStack RC. This can be done either via the ed
   
   * Download the open RC template from the following link using wget:
   
-    `wget https://raw.githubusercontent.com/cloudmesh/book/master/examples/chameleon/cc-openrc.sh -O ~/.cloudmesh/chameleon/cc-openrc.sh`
+    `wget
+     https://raw.githubusercontent.com/cloudmesh/book/master/examples/chameleon/cc-openrc.sh
+     -O ~/.cloudmesh/chameleon/cc-openrc.sh`
   
   * Open the cc-openrc.sh file and edit the following items and save it:
  
@@ -27,15 +41,19 @@ The first step is to create the OpenStack RC. This can be done either via the ed
     `source ~/.cloudmesh/chameleon/cc-openrc.sh`
   
 ## Installing the OpenStack CLI
-The next step is to install the OpenStack CLI and novaclient to create your instances. 
+The next step is to install the OpenStack CLI and novaclient to create your
+instances. 
   * To install the OpenStack client, run the command:
   
     `pip install python-openstackclient`
   
-  * Since the openstack client, has limited functionalities, it is also better to install `nova` API. This can be done by running:
+  * Since the openstack client, has limited functionalities, it is also better
+    to install `nova` API. This can be done by running:
+    
     `pip pip install python-novaclient`
   
-Now you are ready to create your instances on OpenStack. This tutorial is executed on the following versions:
+Now you are ready to create your instances on OpenStack. This tutorial is
+executed on the following versions:
   
   `(ENV2) spathan@spathan-VirtualBox:~/.cloudmesh/chameleon$ openstack --version
   openstack 3.14.0`
@@ -44,7 +62,9 @@ Now you are ready to create your instances on OpenStack. This tutorial is execut
   10.1.0`
 
 ## Creating the Instance  
-In order to create the instances, you need to check the flavor list to be used. To do that, run the following command:
+In order to create the instances, you need to check the flavor list to be used.
+To do that, run the following command:
+
 `openstack flavor list`
 
 Example output:
@@ -80,7 +100,8 @@ Example output:
 | 1decb35b-dd9b-4d88-b9e2-62bdbe68124a | das_arun_deeplearning_CC-Ubuntu16.04             | active |
 ```
 
-To check the security groups list, run the following command. We are going to use the `default` security group that's already created for us.
+To check the security groups list, run the following command. We are going to
+use the `default` security group that's already created for us.
 ```
 (ENV2) spathan@spathan-VirtualBox:~/.cloudmesh/chameleon$ openstack security group list
 +--------------------------------------+-----------------+--------------------------------+-----------+
@@ -91,7 +112,10 @@ To check the security groups list, run the following command. We are going to us
 +--------------------------------------+-----------------+--------------------------------+-----------+
 ```
 
-In order to access the instance from your own VM, you need to create a keypair. If you have keypair already available on your VM and if you would like to use it, go ahead. Else you can create it using `ssh-keygen -t rsa` command. To add your public key on OpenStack, run the following command:
+In order to access the instance from your own VM, you need to create a keypair.
+If you have keypair already available on your VM and if you would like to use
+it, go ahead. Else you can create it using `ssh-keygen -t rsa` command. To add
+your public key on OpenStack, run the following command:
 
 `nova keypair-add --pub-key ~/.ssh/<yourpublickeyname>.pub $CC_PREFIX-key`
 
@@ -101,11 +125,13 @@ To list the keypair added, run the following command:
 
 You should see your $CC_PREFIX-key added. 
 
-Now to create the instances, all 3 instances can be launched at a time using the `nova boot` command:
+Now to create the instances, all 3 instances can be launched at a time using the
+`nova boot` command:
 
-`nova boot --image CC-Ubuntu16.04 --min-count 1 --max-count 3 --key-name $CC_PREFIX-key --flavor m1.small $CC_PREFIX`
+`nova boot --image CC-Ubuntu16.04 --min-count 1 --max-count 3 --key-name
+$CC_PREFIX-key --flavor m1.small $CC_PREFIX`
 
-To see th list of instances created, type the following command:
+To see the list of instances created, type the following command:
 
 `nova list` or `openstack server list`
 
@@ -124,21 +150,26 @@ Example output:
 ```
 
 ## Associating Floating IP
-In order to ssh to the instance from your own VM, you need to assign a floating IP to the instance. For this we first need to generate floating IPs.
+In order to ssh to the instance from your own VM, you need to assign a floating
+IP to the instance. For this we first need to generate floating IPs.
 
 To check if there are any floating IPs already available, run the command:
 
 `openstack floating ip list`
 
-If there are floating IPs available, you can choose to associate them with your instance. If the floating ip list does not return any output, then you need to generate the floating IPs in order to associate them to your instances.
+If there are floating IPs available, you can choose to associate them with your
+instance. If the floating ip list does not return any output, then you need to
+generate the floating IPs in order to associate them to your instances.
 
 To generate the floating IPs, run the following command:
 
 `openstack floating ip create ext-net`
 
-As we have 3 instances to associate with, we need to generate 3 floating IPs. Hence run the above command 3 times.
+As we have 3 instances to associate with, we need to generate 3 floating IPs.
+Hence run the above command 3 times.
 
-Now when you run the `openstack floating ip list` command, you should see 3 floating IPs created.
+Now when you run the `openstack floating ip list` command, you should see 3
+floating IPs created.
 Example output:
 ```
 (ENV2) spathan@spathan-VirtualBox:~/.cloudmesh/chameleon$ openstack floating ip list
@@ -151,7 +182,8 @@ Example output:
 +--------------------------------------+---------------------+------------------+------+--------------------------------------+-----------+
 ```
 
-Before we associate the floating IP to the instance, we need to assign port to our instance ID. To do this, run the following command:
+Before we associate the floating IP to the instance, we need to assign port to
+our instance ID. To do this, run the following command:
 
 `openstack port list --device-id <InstanceID>`
 
@@ -196,10 +228,17 @@ Example Output:
 +--------------------------------------+-------------------------------+---------+--------------------------------------------+----------------+-----------+
 ```
 
-Make sure you associate all your instances to the floating IP in the same manner. As you can see from the `openstack server list` command above, there are 2 addresses shown for the `spathan-516-1` instance. One is the Private IP and the another is the floating IP that you associated your instance with.
+Make sure you associate all your instances to the floating IP in the same
+manner. As you can see from the `openstack server list` command above, there are
+2 addresses shown for the `spathan-516-1` instance. One is the Private IP and
+the another is the floating IP that you associated your instance with.
 
 ## Access the Instances from your own VM
-Once you have associated all instances with floating IPs and all your instances are up and running. You should now be able to SSH to all your instances using the floating IP from the terminal of your own VM. This is because of the SSH-Keypair you had added in the earlier steps. 
+Once you have associated all instances with floating IPs and all your instances
+are up and running. You should now be able to SSH to all your instances using
+the floating IP from the terminal of your own VM. This is because of the
+SSH-Keypair you had added in the earlier steps. 
+
 Run the following commands to SSH to the instances:
 
 `ssh cc@<floatingIPofInstance1>`
@@ -209,52 +248,73 @@ Run the following commands to SSH to the instances:
 `ssh cc@<floatingIPofInstance3>`
 
 ## Generating Passwordless SSH Key-Pairs on Instances
-The next step is to copy the public keys on one instance into the authorized_keys file of the other instances.
+The next step is to copy the public keys on one instance into the
+authorized_keys file of the other instances.
   * For this, open 3 terminals. run the commands from your own VM:
   
   `ssh cc@<floatingIPofInstance1>`  
   `ssh cc@<floatingIPofInstance2>`  
   `ssh cc@<floatingIPofInstance3>`
 
-  * Open the public key file contents of instance1(id_rsa_01.pub) using cat command:
+  * Open the public key file contents of instance1(id_rsa_01.pub) using cat
+    command:
   
   `cat ~/.ssh/id_rsa_01.pub`
 
-    Copy the contents and paste it into the ~/.ssh/authorized_keys file of instance2 and instance3.
+    Copy the contents and paste it into the ~/.ssh/authorized_keys file of
+    instance2 and instance3.
 
   * Then, open the public key file contents of instance2(id_rsa_02.pub) using cat command:
   
   `cat ~/.ssh/id_rsa_02.pub`
 
-    Copy the contents and paste it into the ~/.ssh/authorized_keys file of instance1 and instance3.
+    Copy the contents and paste it into the ~/.ssh/authorized_keys file of
+    instance1 and instance3.
 
-  * Next, open the public key file contents of instance3(id_rsa_02.pub) using cat command:
+  * Next, open the public key file contents of instance3(id_rsa_02.pub) using
+    cat command:
   
   `cat ~/.ssh/id_rsa_03.pub`
     
-    Copy the contents and paste it into the ~/.ssh/authorized_keys file of instance1 and instance2.
+    Copy the contents and paste it into the ~/.ssh/authorized_keys file of
+    instance1 and instance2.
 
-Once this is done, the authorized_keys file on one instance should have the public keys of all the other instances, including the public key of your own VM (since you had added that earlier while creating the instance).
+Once this is done, the authorized_keys file on one instance should have the
+public keys of all the other instances, including the public key of your own VM
+(since you had added that earlier while creating the instance).
 
 ## Accessing instances
-Now, you should be able to ssh between these instances using either floatingIP or the PrivateIP. But be sure to provide the private key of the instance that you are logging in from. Run the following commands to verify:
-  * First login to one of the instance e.g. instance1 using `ssh cc@<floatingIPofInstance1>` from your own VM.
+Now, you should be able to ssh between these instances using either floatingIP
+or the PrivateIP. But be sure to provide the private key of the instance that
+you are logging in from. Run the following commands to verify:
+  * First login to one of the instance e.g. instance1 using 
+  
+   `ssh cc@<floatingIPofInstance1>` from your own VM.
+ 
   * Now ssh to another instance from instance1, either 2 or 3 using:
   
-  `ssh -i <privateKeyofInstance1:e.g.id_rsa_01> cc@<floatingIPofInstance2/PrivateIPofInstance2>`
+  `ssh -i <privateKeyofInstance1:e.g.id_rsa_01>
+   cc@<floatingIPofInstance2/PrivateIPofInstance2>`
   
   * The prompt should now change to instance2. 
-  * Try to ssh from instance1 to instance3, from instance2 to instance1/instance3 or from instance3 to instance1/instance2. 
+  * Try to ssh from instance1 to instance3, from instance2 to
+    instance1/instance3 or from instance3 to instance1/instance2. 
   * It should login in successfully to these instances.
-  * Instead of providing the private_key, you can avoid that by starting ssh_agent process and then adding the private key using ssh add. To do this, run the following commands on all instances with the correct private_key name:
+  * Instead of providing the private_key, you can avoid that by starting
+    ssh_agent process and then adding the private key using ssh add. To do this,
+    run the following commands on all instances with the correct private_key
+    name:
   
   `eval "$(ssh-agent -s)"`
   
   `ssh-add ~/.ssh/id_rsa`
   
-Now you should be able to login from one instance to another using ssh and without providing the private key.
+Now you should be able to login from one instance to another using ssh and
+without providing the private key.
   
-Our goal was to set up a cluster using the instances created on Openstack. Now you are able to successfully login to each of these instances and the login from one instance to another is also possible. 
+Our goal was to set up a cluster using the instances created on Openstack. Now
+you are able to successfully login to each of these instances and the login from
+one instance to another is also possible. 
 
 ## References
 <https://docs.openstack.org/python-openstackclient/pike/>
