@@ -38,6 +38,8 @@ WORKDIR /hid-sp18-516/tutorial
 
 #COPY cc-openrc.sh /hid-sp18-516/tutorial/
 
+RUN make copy
+
 # install openstack cli and nova for python
 RUN pip install python-openstackclient
 RUN pip install python-novaclient
