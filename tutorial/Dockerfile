@@ -37,7 +37,6 @@ RUN git clone https://github.com/cloudmesh-community/hid-sp18-516.git
 WORKDIR /hid-sp18-516/tutorial
 
 #COPY cc-openrc.sh /hid-sp18-516/tutorial/
-RUN wget https://github.com/cloudmesh-community/hid-sp18-516/tree/master/tutorial/cc-openrc.sh 
 
 # install openstack cli and nova for python
 RUN pip install python-openstackclient
