@@ -32,7 +32,7 @@ RUN pyenv install 2.7.14
 RUN pyenv global 2.7.14
 RUN python -m ensurepip
 
-RUN git clone https://github.com/cloudmesh-community/hid-sp18-516.git
+RUN git clone -b master https://github.com/cloudmesh-community/hid-sp18-516.git
 
 WORKDIR /hid-sp18-516/tutorial
 
