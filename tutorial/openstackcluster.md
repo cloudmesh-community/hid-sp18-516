@@ -332,4 +332,49 @@ one instance to another is also possible.
 <https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/>
 
 
+## Running it on Container
+git clone the tutorial directory on your machine
 
+Make sure you have your `cc-openrc.sh` file in the same directory as your Dockerfile
+
+To build the image, simply run the following command from your terminal:
+
+`sudo docker build -t openstack-tutorial .`
+
+To login to the container in interactive mode, run the command:
+
+`sudo docker run -p 8080:8080 --rm -it openstack-tutorial bash`
+
+Once you login, you have to source your cc-openrc.sh file:
+
+`source cc-openrc.sh`
+
+Now you will be able to execute all the openstack commands on container 
+and create the cluster as shown above.
+
+Example output:
+```
+(ENV2) spathan@spathan-VirtualBox:~/github/cloudmesh-community/hid-sp18-516/tutorial$ sudo docker run -p 8080:8080 --rm -it openstack-tutorial bash
+root@c41a045021ff:/app# ls
+cc-openrc.sh
+root@c41a045021ff:/app# source cc-openrc.sh 
+Please enter your OpenStack Password: 
+root@c41a045021ff:/app# nova list
++--------------------------------------+-----------------+---------+-------------+-------------+---------------------------------------------+
+| ID                                   | Name            | Status  | Task State  | Power State | Networks                                    |
++--------------------------------------+-----------------+---------+-------------+-------------+---------------------------------------------+
+| 1420b190-5995-4cae-a4c5-985691a20a63 | rcarmick-404-01 | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.19                  |
+| e27a1cc6-a698-4257-8561-636ed7bb1d08 | rlambadi-514-01 | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.58, 129.114.111.59  |
+| 70b6f5cb-686f-49f9-8ac0-caf3ad0907a5 | rlambadi-514-02 | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.54, 129.114.33.98   |
+| d37292ad-7172-45f6-bef4-e3e795c98e05 | rrufael-703-01  | SHUTOFF | powering-on | Shutdown    | CH-819337-net=192.168.0.55, 129.114.110.186 |
+| 78538d78-1bb0-434f-8605-413997cc55ef | rrufael-703-02  | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.59, 129.114.110.10  |
+| 01621d47-ced4-4a04-9a63-f74a1ae0098e | rrufael-703-03  | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.38, 129.114.33.5    |
+| ccca4aff-777d-4856-98b9-55d3a37df4d7 | skhande-511-01  | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.44, 129.114.33.75   |
+| d61fdc1f-9622-4937-9d3a-8b52228e442b | skhande-511-02  | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.45                  |
+| f92dc70d-6389-42dd-814e-fb674d6665e2 | skhande-511-03  | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.46                  |
+| fb858c85-8702-4ae2-8e4f-33ce672c817b | spathan-516-1   | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.33, 129.114.111.85  |
+| 10f5f689-0975-4e8b-9e1e-0fdbe968b086 | spathan-516-2   | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.34, 129.114.111.86  |
+| 7e443fc1-f1ce-4821-8710-e461a1f4a27f | spathan-516-3   | SHUTOFF | -           | Shutdown    | CH-819337-net=192.168.0.35, 129.114.111.90  |
++--------------------------------------+-----------------+---------+-------------+-------------+---------------------------------------------+
+root@c41a045021ff:/app# exit
+```
