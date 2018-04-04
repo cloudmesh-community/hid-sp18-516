@@ -47,10 +47,10 @@ instances.
   
     `pip install python-openstackclient`
   
-  * Since the openstack client, has limited functionalities, it is also better
-    to install `nova` API. This can be done by running:
+  * Since the openstack client, has limited functionalities, it is also better to 
+    install `nova` API. This can be done by running:
     
-    `pip pip install python-novaclient`
+    `pip install python-novaclient`
   
 Now you are ready to create your instances on OpenStack. This tutorial is
 executed on the following versions:
