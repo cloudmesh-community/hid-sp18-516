@@ -1,0 +1,81 @@
+swagger: "2.0"
+info: 
+  version: "1.0"
+  title: "OpenStack Deployment Using Lib"
+  description: "A simple service to pull OpenStack instance attributes and deploy the instance"
+  termsOfService: "http://swagger.io/terms/"
+  license: 
+    name: "Apache"
+host: "localhost:8080"
+basePath: "/cloudmesh/openstack"
+schemes: 
+  - "http"
+consumes: 
+  - "application/json"
+produces: 
+  - "application/json"
+paths: 
+  /flavor:
+   get:
+     responses:
+       '200':
+         description: OK
+       schema:
+         type: object
+         description: Flavor
+       properties:
+         ephemeralDiskInGb:
+           type: integer
+           description: VM ephemeral disk size in GB
+         vcpus:
+           type: integer
+           description: Number of virtual CPUs
+         href:
+           type: string
+           description: Url to a flavor
+         name:
+           type: string
+           description: Flavor name
+         diskInGb:
+           type: integer
+           description: Disk size in GB
+         ramInMb:
+           type: integer
+           description: Memory size in MB
+         id:
+           type: string
+           description: Flavor id
+        '404':
+          description: Flavor id does not exist
+        '500':
+          description: An unexpected error occurred
+          schema:
+            type: object
+            properties:
+              status:
+                default: 500
+                type: integer
+              timestamp:
+                type: string
+              url:
+                type: string
+              exec_info:
+                type: string
+      description: Get specific flavor by id
+      parameters:
+        - required: true
+          type: string
+          description: subscription id
+          in: query
+          name: subscriptionId
+        - required: true
+          type: string
+          description: Flavor id
+          in: path
+          name: flavor_id
+      tags:
+        - compute
+        - openstack
+      summary: Get flavor
+      operationId: get_openstack_compute_flavor
+
