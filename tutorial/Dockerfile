@@ -34,6 +34,7 @@ RUN python -m ensurepip
 
 WORKDIR /app
 
+# make sure to put the cc-openrc.sh in the same directory as Dockerfile
 COPY cc-openrc.sh /app
 
 # install openstack cli and nova for python
