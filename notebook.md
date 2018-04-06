@@ -102,6 +102,8 @@
 * 2018/03/16 Worked on Swagger assignment, made changes suggested by Prof.
 * 2018/03/20 fixed the compilation errors of Technology paper 
 * 2018/03/26 Worked on testing Swagger service on container, after making some changes it worked. 
+* 2018/04/03 Created a Dockerfile for Openstack tutorial as suggested by Professor
+* 2018/04/04 Started working on final project
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
@@ -119,6 +121,7 @@
 * 2018/03/08 - 2018/03/09 Worked on Technology Paper
 * 2018/03/12 - 2018/03/15 Worked on Technology Paper and submitted on 15th March
 * 2018/03/21 - 2018/03/25 Worked on Tutorial and uploaded on Github
+* 2018/03/28 - 2018/03/31 Project research, prepared proposal
 
 # Communication
 * 2018/01/25 Suggested improvements to REST chapter on Piazza
