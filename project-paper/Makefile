@@ -5,6 +5,8 @@ DEFAULT=$(FILE)
 LATEX=pdflatex
 BIBTEX=bibtex
 
+SAMPLE=../../hid-sample
+
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Darwin)
@@ -23,26 +25,30 @@ endif
 #>> report-latex.log 2>&1
 #	make -f Makefile check >> report-latex.log 2>&1
 
-all:
-	cd ../../hid-sample; git pull
-	cp ../../hid-sample/paper/Makefile .
+
+all: prepare
 	make -f Makefile generate
 
-generate: clean iureport
+generate: clean iureport check
 	$(LATEX) ${FLAGS} ${FILE}
 	$(BIBTEX) ${FILE}
 	$(LATEX) ${FLAGS} ${FILE}
 	$(LATEX) ${FLAGS} ${FILE}
 
-iureport:
-	cp ../../hid-sample/tex/format/iureport.cls .
-	cp ../../hid-sample/tex/format/ACM-Reference-Format.bst .
+prepare:
+	cd ../../hid-sample; git pull
+	cp ../../hid-sample/paper/Makefile .
 
-check:
-	chktex -q -n 13 -n 8 content.tex
+iureport:
+	cp $(SAMPLE)/tex/format/iureport.cls .
+	cp $(SAMPLE)/tex/format/ACM-Reference-Format.bst .
+
+check: prepare
+	@$(SAMPLE)/bin/check-quotes.py content.tex
+	@chktex -q -n 13 -n 8 content.tex
 
 check-ta:
-	@python 	../../hid-sample/paper/check.py 
+	@python $(SAMPLE)/paper/check.py 
 
 bibtex:
 	@echo 
