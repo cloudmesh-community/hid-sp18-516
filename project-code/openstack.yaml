@@ -15,67 +15,235 @@ consumes:
 produces: 
   - "application/json"
 paths: 
+  /images:
+    get:
+      description: "Returns a list of images available"
+      produces:
+        - "application/json"
+      responses: 
+        "200":
+          description: "Images info"
+          schema: 
+            $ref: "#/definitions/IMAGES"
   /flavor:
-   get:
-     responses:
-       '200':
-         description: OK
-       schema:
-         type: object
-         description: Flavor
-       properties:
-         ephemeralDiskInGb:
-           type: integer
-           description: VM ephemeral disk size in GB
-         vcpus:
-           type: integer
-           description: Number of virtual CPUs
-         href:
-           type: string
-           description: Url to a flavor
-         name:
-           type: string
-           description: Flavor name
-         diskInGb:
-           type: integer
-           description: Disk size in GB
-         ramInMb:
-           type: integer
-           description: Memory size in MB
-         id:
-           type: string
-           description: Flavor id
-        '404':
-          description: Flavor id does not exist
-        '500':
-          description: An unexpected error occurred
+    get:
+      description: "Returns a list of flavors available"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Flavor info"
           schema:
-            type: object
-            properties:
-              status:
-                default: 500
-                type: integer
-              timestamp:
-                type: string
-              url:
-                type: string
-              exec_info:
-                type: string
-      description: Get specific flavor by id
+            $ref: "#/definitions/FLAVOR"
+  /listInstances:
+    get:
+      description: "Returns a list of instances available"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Instance info"
+          schema:
+            $ref: "#/definitions/INSTANCE"
+  /createInstance:
+    post:
+      description: "Create an instance"
       parameters:
-        - required: true
+        - in: body
+          name: attributes
+          description: "The name,imagename/id, flavor id, ssh keypair name, ssh public key to create an instance as payload"
+          schema:
+            $ref: '#/definitions/ATTRIBUTES'
+      responses:
+        200:
+          description: "instance was created successfully."
+  /deleteInstance/{instance_name}:
+    delete:
+      description: "Delete an instance"
+      parameters:
+        - in: path
+          name: instance_name
+          description: "Provide the instance name in path"
+          required: true
           type: string
-          description: subscription id
-          in: query
-          name: subscriptionId
-        - required: true
-          type: string
-          description: Flavor id
-          in: path
-          name: flavor_id
-      tags:
-        - compute
-        - openstack
-      summary: Get flavor
-      operationId: get_openstack_compute_flavor
+      responses:
+        "200":
+          description: "Instance was deleted successfully"
+          schema:
+            $ref: "#/definitions/DELETE"
+  /stopInstance:
+    post:
+      description: "Stop an instance"
+      parameters:
+        - in: body
+          name: instance_name
+          description: "Provide the instance name in the body"
+          schema:
+            $ref: "#/definitions/DELETE"
+      responses:
+        "200":
+          description: "Instance was stopped successfully"
+  /startInstance:
+    post:
+      description: "Start a stopped instance"
+      parameters:
+        - in: body
+          name: instance_name
+          description: "Provide the instance name in the body"
+          schema:
+            $ref: "#/definitions/DELETE"
+      responses:
+        "200":
+          description: "Instance was started successfully"
+  /addkeypair:
+    post:
+      description: "Add a SSH KeyPair to associate with the instance"
+      parameters:
+        - in: body
+          name: keypair
+          description: "Provide the instance name, ssh keypair name and the public key in body"
+          schema:
+            $ref: "#/definitions/KEYPAIR"
+      responses:
+        "200":
+          description: "ssh keypair was added successfully to the instance"
+  /floatingIP:
+    post:
+      description: "Attach a floating IP with the instance"
+      parameters:
+        - in: body
+          name: instance_name
+          description: "Provide the instance name to attach the floating IP in body"
+          schema:
+            $ref: "#/definitions/DELETE"
+      responses:
+        "200":
+          description: "Floating IP was attached successfully"
+  /securitygroup:
+    post:
+      description: "Create security group if not already existing"
+      parameters:
+        - in: body
+          name: security
+          description: "Provide the instance name and the security group name in body"
+          schema:
+            $ref: "#/definitions/SECURITY"
+      responses:
+        "200":
+          description: "Security group was created successfully and associated with the instance"
+
+definitions:
+  IMAGES:
+    type: "object"
+    required:
+      - "id"
+      - "name"
+      - "status"
+    properties: 
+      id:
+        type: "string"
+      name:
+        type: "string"
+      status:
+        type: "string"
+  FLAVOR:
+    type: "object"
+    required:
+      - "id"
+      - "name"
+      - "ram"
+      - "disk"
+      - "bandwidth"
+      - "vcpus"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      ram:
+        type: "string"
+      disk:
+        type: "string"
+      bandwidth:
+        type: "string"
+      vcpus:
+        type: "string"
+  INSTANCE:
+    type: "object"
+    required:
+      - "uuid"
+      - "name"
+      - "state"
+      - "public_ips"
+      - "private_ips"
+      - "image_id"
+      - "created"
+      - "flavorId"
+      - "tenantId"
+      - "key_name"
+    properties:
+      uuid:
+        type: "string"
+      name:
+        type: "string"
+      state:
+        type: "string"
+      public_ips:
+        type: "string"
+      private_ips:
+        type: "string"
+      image_id:
+        type: "string"
+      created:
+        type: "string"
+      flavorId:
+        type: "string"
+      tenantId:
+        type: "string"
+      key_name:
+       type: "string"
+  ATTRIBUTES:
+    type: "object"
+    required:
+      - "instance name"
+      - "image id/name"
+      - "flavor id"
+    properties:
+      instance name:
+        type: "string"
+      image id/name:
+        type: "string"
+      flavor id:
+        type: "string"
+  DELETE:
+    type: "object"
+    required:
+      - "instance_name"
+    properties:
+      instance_name:
+        type: "string"
+  KEYPAIR:
+    type: "object"
+    required:
+      - "instance_name"
+      - "keypair_name"
+      - "public_key"
+    properties:
+      instance_name:
+        type: "string"
+      keypair_name:
+        type: "string"
+      public_key:
+        type: "string"
+  SECURITY:
+    type: "object"
+    required:
+      - "instance_name"
+      - "group_name"
+    properties:
+      instance_name:
+        type: "string"
+      group_name:
+        type: "string"
+
 
