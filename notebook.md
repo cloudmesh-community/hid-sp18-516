@@ -15,6 +15,7 @@
 * 2018/03/12 Attended meeting with Prof. Gregor
 * 2018/03/24 Attended meeting with Vibhata
 * 2018/03/26 Attended Project meeting with Prof. Gregor
+* 2018/04/09 Attended meeting with Prof. Gregor
 
 # Logistic
 * 2018/01/11 Read the Part1-Preface, Part2-Syllabus for i524 and the entire Part3-Class Policies and Communication of the Handbook
@@ -103,7 +104,8 @@
 * 2018/03/20 fixed the compilation errors of Technology paper 
 * 2018/03/26 Worked on testing Swagger service on container, after making some changes it worked. 
 * 2018/04/03 Created a Dockerfile for Openstack tutorial as suggested by Professor
-* 2018/04/04 Started working on final project
+* 2018/04/04 - 2018/04/08 Worked on final project version1
+* 2018/04/09 Submitted the version1 of final proj on Github
 
 # Writing
 * 2018/01/10 Posted formal Bio on Piazza
