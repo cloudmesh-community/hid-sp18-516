@@ -29,7 +29,7 @@ endif
 all: prepare
 	make -f Makefile generate
 
-generate: clean iureport check
+generate: clean iureport check log
 	$(LATEX) ${FLAGS} ${FILE}
 	$(BIBTEX) ${FILE}
 	$(LATEX) ${FLAGS} ${FILE}
@@ -38,6 +38,7 @@ generate: clean iureport check
 prepare:
 	cd ../../hid-sample; git pull
 	cp ../../hid-sample/paper/Makefile .
+	cp ../../hid-sample/paper/report.tex .
 
 iureport:
 	cp $(SAMPLE)/tex/format/iureport.cls .
@@ -49,6 +50,16 @@ check: prepare
 
 check-ta:
 	@python $(SAMPLE)/paper/check.py 
+
+log:
+	@echo '\\appendix' > check.tex
+	@echo '\\section{chktex}'>> check.tex
+	@echo '\\begin{tiny}'>> check.tex
+	@echo '\\begin{verbatim}'>> check.tex
+	@make check >> check.tex
+	@echo "\\end{verbatim}" >> check.tex
+	@echo '\\end{tiny}'>> check.tex
+	@echo "creating check.tex"
 
 bibtex:
 	@echo 
