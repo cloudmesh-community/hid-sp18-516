@@ -35,8 +35,9 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * To clean the directories, run:
   * `make clean`
   
-* To create a docker image and build the image, simple run:
-  * `make container`
+* To create a docker image and build the image, simply run:
+  * `docker-build`
+  * `docker-start`
   
   * To test the service on the docker container, first you need to login to the container using the command:
   
