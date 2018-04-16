@@ -37,6 +37,8 @@ clean:
 	rm -r $(DESTDIR)
 	rm -r $(CONFIGDIR)
 
-container:
+docker-build:
 	sudo docker build -t cloudmesh-localhost .
+
+docker-start:
 	sudo docker run -p 8080:8080 cloudmesh-localhost 
