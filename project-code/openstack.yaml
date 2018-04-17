@@ -48,10 +48,11 @@ paths:
   /createInstance:
     post:
       description: "Create an instance"
+      operationId: "createVM"
       parameters:
         - in: body
-          name: attributes
-          description: "The name,imagename/id, flavor id, ssh keypair name, ssh public key to create an instance as payload"
+          name: attributes 
+          description: "Provide the instance name(required),image name/id, flavor id, ssh keypair name, security group to create an instance as payload"
           schema:
             $ref: '#/definitions/ATTRIBUTES'
       responses:
@@ -60,9 +61,10 @@ paths:
   /deleteInstance/{instance_name}:
     delete:
       description: "Delete an instance"
+      operationId: "deleteVM"
       parameters:
         - in: path
-          name: instance_name
+          name: instance_name 
           description: "Provide the instance name in path"
           required: true
           type: string
@@ -74,9 +76,10 @@ paths:
   /stopInstance:
     post:
       description: "Stop an instance"
+      operationId: "stop_vm"
       parameters:
         - in: body
-          name: instance_name
+          name: param
           description: "Provide the instance name in the body"
           schema:
             $ref: "#/definitions/DELETE"
@@ -85,10 +88,11 @@ paths:
           description: "Instance was stopped successfully"
   /startInstance:
     post:
-      description: "Start a stopped instance"
+      description: "Start a stopped instance"  
+      operationId: "start_vm"
       parameters:
         - in: body
-          name: instance_name
+          name: param
           description: "Provide the instance name in the body"
           schema:
             $ref: "#/definitions/DELETE"
@@ -97,22 +101,24 @@ paths:
           description: "Instance was started successfully"
   /addkeypair:
     post:
-      description: "Add a SSH KeyPair to associate with the instance"
+      description: "Add a new SSH KeyPair on the cloud"
+      operationId: "addkeypair"
       parameters:
         - in: body
-          name: keypair
-          description: "Provide the instance name, ssh keypair name and the public key in body"
+          name: params
+          description: "Provide the ssh keypair name and the public key as payload"
           schema:
             $ref: "#/definitions/KEYPAIR"
       responses:
         "200":
-          description: "ssh keypair was added successfully to the instance"
+          description: "ssh keypair was added successfully"
   /floatingIP:
     post:
       description: "Attach a floating IP with the instance"
+      operationId: "addfloatingIP"
       parameters:
         - in: body
-          name: instance_name
+          name: param
           description: "Provide the instance name to attach the floating IP in body"
           schema:
             $ref: "#/definitions/DELETE"
@@ -122,10 +128,11 @@ paths:
   /securitygroup:
     post:
       description: "Create security group if not already existing"
+      operationId: "addsecuritygroup"
       parameters:
         - in: body
-          name: security
-          description: "Provide the instance name and the security group name in body"
+          name: param
+          description: "Provide the security group name in body"
           schema:
             $ref: "#/definitions/SECURITY"
       responses:
@@ -205,16 +212,19 @@ definitions:
   ATTRIBUTES:
     type: "object"
     required:
-      - "instance name"
-      - "image id/name"
-      - "flavor id"
+      - "instance_name"
     properties:
-      instance name:
+      instance_name:
         type: "string"
-      image id/name:
+      image_id:
         type: "string"
-      flavor id:
+      flavor_id:
         type: "string"
+      security_group:
+        type: "string"
+      keypair_name:
+        type: "string"
+       
   DELETE:
     type: "object"
     required:
@@ -225,12 +235,9 @@ definitions:
   KEYPAIR:
     type: "object"
     required:
-      - "instance_name"
       - "keypair_name"
       - "public_key"
     properties:
-      instance_name:
-        type: "string"
       keypair_name:
         type: "string"
       public_key:
@@ -238,12 +245,7 @@ definitions:
   SECURITY:
     type: "object"
     required:
-      - "instance_name"
       - "group_name"
     properties:
-      instance_name:
-        type: "string"
       group_name:
         type: "string"
-
-
