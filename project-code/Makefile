@@ -1,48 +1,85 @@
-#
-# Naturally you need to adapt this to make work for your project
-#
+.PHONY: all test clean
 
-all:
-	@echo "create a useful makefile that makes it easy to run your code"
-	@echo make sure your data is downloaded from the intenet"
+SWAGGERCODEGEN=java -jar swagger-codegen-cli.jar
+YAMLFILE1=openstack.yaml
+YAMLFILE2=class.yaml
+DESTDIR=server/
+CONFIGDIR=~/.cloudmesh/
 
-data:
-	@echo "wget or curl your data from the internet"
+dest:
+	mkdir -p $(DESTDIR)
+	mkdir -p $(CONFIGDIR)
 
-generate:
-	@echo "generat your code such as swagger services"
+service: dest
+	$(SWAGGERCODEGEN) generate -i $(YAMLFILE1) -l python-flask -o $(DESTDIR) -D supportPython2=true
+	cp -r default_controller.py $(DESTDIR)/swagger_server/controllers
+	cp -r util.py $(DESTDIR)/swagger_server/controllers
+	#cp -r __main__.py $(DESTDIR)/swagger_server/
+	cp -r $(YAMLFILE2) $(CONFIGDIR)
+	cd $(DESTDIR) && pip install -r requirements.txt && \
+        python setup.py install
 
-install: install-swagger install-mongo
-	@echo "install your code so it can be used on the system it is supposed to run"
-	@echo "you could have multiple installs so we giva na exampel"
+start: 
+	cd $(DESTDIR) && python -m swagger_server
 
-install-swagger:
-	@echo "install your swagger services"
+stop:
+	ps -ef | grep swagger | grep -v "grep"| awk '{print $$2}' | xargs kill -9
 
-install-mongo:
-	@echo "install your mongo services - this is just an example, you may not use mongo"
 
-start: start-swagger start-mongo
-  @echo "start your code so it can be used on the system it is supposed to run"
-	@echo "you could have multiple starts so we giva na exampel"
+clean:
+	if [ -d $(DESTDIR) ]; then rm -r $(DESTDIR); fi
+	if [ -d $(CONFIGDIR) ]; then rm -r $(CONFIGDIR); fi
 
-start-swagger:
-	@echo "start your swagger services"
+test_VMs: 
+	echo "List instances:"
+	curl -H "Content-Type:application/json" -X GET http://localhost:8080/cloudmesh/openstack/listInstances
 
-stop-mongo:
-	@echo "stop your mongo services - this is just an example, you may not use mongo"
+test_images: 
+	echo "List images:"
+	curl -H "Content-Type:application/json" -X GET http://localhost:8080/cloudmesh/openstack/images
 
-stop: stop-swagger stop-mongo
-  @echo "stop your code so it can be used on the system it is supposed to run"
-	@echo "you could have multiple stops so we giva na exampel"
+test_flavors:	
+	echo "List flavors:"
+	curl -H "Content-Type:application/json" -X GET http://localhost:8080/cloudmesh/openstack/flavor
 
-stop-swagger:
-	@echo "stop your swagger services"
+test_createVM:
+	echo "Create an Instance:"
+	curl -H "Content-Type:application/json" -X POST -d '{"instance_name": "test-VM1-516"}' http://localhost:8080/cloudmesh/openstack/createInstance
+	curl -H "Content-Type:application/json" -X POST -d '{"instance_name": "test-VM2-516", "image_id": "1895dc93-7cd8-4b46-a252-4eb55b80859f", "flavor_id": "2", "keypair_name": "openstackVM", "security_group": "default"}' http://localhost:8080/cloudmesh/openstack/createInstance
+	
+test_secgroup:
+	echo "Create Security Group:"
+	curl -H "Content-Type:application/json" -X POST -d '{"group_name": "default_test"}' http://localhost:8080/cloudmesh/openstack/securitygroup
+	
+test_keypair:
+	echo "Add SSH Keypair:"
+	curl -H "Content-Type:application/json" -X POST -d '{"keypair_name": "openstackVM", "public_key": "~/.ssh/openstackVM.pub"}' http://localhost:8080/cloudmesh/openstack/addkeypair
+	
+test_floatingIP:
+	echo "Attach Floating IP to the instance:"
+	curl -H "Content-Type:application/json" -X POST -d '{"instance_name": "test-VM1-516"}' http://localhost:8080/cloudmesh/openstack/floatingIP
 
-stop-mongo:
-	@echo "stop your mongo services - this is just an example, you may not use mongo"
+test_stopVM:
+	echo "Stop an instance:"
+	curl -H "Content-Type:application/json" -X POST -d '{"instance_name": "test-VM1-516"}' http://localhost:8080/cloudmesh/openstack/stopInstance
 
-test:
-	@echo "test your service"
+test_startVM:
+	echo "Start an instance:"
+	curl -H "Content-Type:application/json" -X POST -d '{"instance_name": "test-VM1-516"}' http://localhost:8080/cloudmesh/openstack/startInstance
 
+test_deleteVM:
+	echo "Delete an instance:"
+	curl -H "Content-Type:application/json" -X DELETE http://localhost:8080/cloudmesh/openstack/deleteInstance/test-VM1-516
+
+docker-build:
+	sudo docker build -t cloudmesh-openstack .
+
+docker-start:
+	sudo docker run -p 8080:8080 cloudmesh-openstack 
+
+docker-start-detach-mode:
+	sudo docker run -d -p 8080:8080 cloudmesh-openstack
+
+docker-stop:
+	sudo docker stop $$(sudo docker ps -a -q -f status=running)
 

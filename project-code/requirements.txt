@@ -1,0 +1,4 @@
+apache-libcloud >= 2.3.0
+Flask >= 0.12
+connexion >= 1.1.15
+decorator >= 4.2.1

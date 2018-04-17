@@ -1,0 +1,52 @@
+version: 5.0
+profile:
+  firstname: Gregor
+  lastname: von Laszewski
+  email: laszewski@gmail.com
+cloudmesh:
+  default:
+  - tacc 
+  active:
+  - tacc
+clouds:
+  uc:
+    name: Chameleon UC
+    host: chameleoncloud.org
+    type: openstack
+    version: liberty
+    credentials:
+      OS_AUTH_URL: https://openstack.uc.chameleoncloud.org:5000
+      OS_PASSWORD: TBD
+      OS_TENANT_NAME: CH-818664
+      OS_TENANT_ID: CH-818664
+      OS_PROJECT_NAME: CH-818664
+      OS_PROJECT_DOMAIN_ID: default
+      OS_USER_DOMAIN_ID: default
+      OS_USERNAME: TBD
+      OS_VERSION: liberty
+      OS_REGION_NAME: RegionOne
+    default:
+      flavor: m1.small
+      image: Ubuntu-Server-14.04-LTS
+  tacc:
+    name: Chameleon TACC
+    host: chameleoncloud.org
+    type: openstack
+    version: liberty
+    credentials:
+      OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000
+      OS_PASSWORD: 123Chameleon!@#
+      OS_TENANT_NAME: CH-819337
+      OS_TENANT_ID: CH-819337
+      OS_PROJECT_NAME: CH-819337
+      OS_PROJECT_DOMAIN_ID: default
+      OS_USER_DOMAIN_ID: default
+      OS_USERNAME: spathan 
+      OS_VERSION: liberty
+      OS_REGION_NAME: RegionOne
+    default:
+      flavor: m1.small
+      image: CC-Ubuntu16.04-20180205 
+      secgroup: default
+      keypairname: openstackVM
+
