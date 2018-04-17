@@ -42,3 +42,6 @@ docker-build:
 
 docker-start:
 	sudo docker run -p 8080:8080 cloudmesh-localhost 
+	
+docker-stop:
+        sudo docker stop $$(sudo docker ps -a -q -f status=running)
