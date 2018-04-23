@@ -17,7 +17,7 @@ service: dest
 	cp -r __main__.py $(DESTDIR)/swagger_server/
 	cp -r $(YAMLFILE2) $(CONFIGDIR)
 	cd $(DESTDIR) && pip install -r requirements.txt && \
-        python setup.py install
+	python setup.py install
 
 start: 
 	cd $(DESTDIR) && python -m swagger_server
@@ -44,4 +44,4 @@ docker-start:
 	sudo docker run -p 8080:8080 cloudmesh-localhost 
 	
 docker-stop:
-        sudo docker stop $$(sudo docker ps -a -q -f status=running)
+	sudo docker stop $$(sudo docker ps -a -q -f status=running)
