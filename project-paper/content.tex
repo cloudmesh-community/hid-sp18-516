@@ -1,7 +1,7 @@
 % status: 0
 % chapter: TBD
 
-\title{Swagger Service for deploying VMs on OpenStack with Apache Libcloud}
+\title{Openstack deployment using Swagger REST APIs and Apache Libcloud}
 
 
 \author{Shagufta Pathan}
@@ -18,49 +18,570 @@
 
 
 \begin{abstract}
-The primary purpose of this project is two fold. Firstly to write code that
-leverages the Apache libcloud library to manage cloud resources provided by
-OpenStack. The second part of this project is to expose the wrapper code
-mentioned earlier via a Swagger based REST service. It will focus on different
-aspects like how to work with OpenStack instances, images, keypair management,
-and execution of basic commands on the created instances.
+This project leverages the capability of Swagger Codegen and Apache libcloud 
+for easily allowing users to deploy instances on OpenStack without worrying 
+about the underlying architecture. The users can create an instance, list 
+instances, add floating ip to the instance, add ssh keypair and more, provided 
+the user has permission to perform these activities. Using the REST API 
+endpoints, a fully-fledged instance can be created instead of clicking on the 
+UI form and filling in the details to get the instance created. This project 
+also demonstrates the use of cloud-init to send userdata on instance creation 
+by executing some basic shell commands. This project chooses OpenStack as the 
+cloud infrastructure since it is ever-growing and one of the most popular 
+cloud platform.
 \end{abstract}
 
-\keywords{hid-sp18-516, Swagger, REST, Apache libcloud}
+\keywords{hid-sp18-516, Swagger, REST, Apache libcloud, Python}
 
 \maketitle
 
 \section{Introduction}
 OpenStack is an open-source cloud-computing service and is available for free
-that provides virtual servers and resources to customers. It is mostly deployed
-as infrastructure-as-a-service~\cite{hid-sp18-516-www-openstack}. Whereas Apache
-Libcloud is a python library that allows to interact with several popular cloud
-service providers with the help of a unified API to interact with different
-cloud services. The compute component of libcloud allows to manage cloud and
-virtual servers offered by different providers~\cite{hid-sp18-516-www-libcloud}.
-Libcloud helps users to deploy one or more virtual machines on OpenStack and
-also allows to run commands on the virtual machines. The motivations behind
-using Libcloud is to ensure that the application is portable in terms of the
-cloud service provider. 
+that provides virtual servers and resources to customers. It is mostly 
+deployed as infrastructure-as-a-service~\cite{hid-sp18-516-www-openstack}. 
+Whereas Apache Libcloud is a python library that allows to interact with 
+several popular cloud service providers with the help of a unified API to 
+interact with different cloud services. The compute component of libcloud 
+allows to manage cloud and virtual servers offered by different 
+providers~\cite{hid-sp18-516-www-libcloud}. Libcloud helps users to deploy one 
+or more virtual machines on OpenStack and allows to run commands on the 
+virtual machines. The motivation behind using Libcloud is to ensure that the 
+application is portable in terms of the cloud service provider without having 
+to rewrite the Swagger specification file.
 
-\section{Resources}
-This project aims to provide APIs to some of the following resources:
+\section{Technologies Used}
 \begin{itemize}
-\item List Images
-\item List Nodes
-\item List flavor
-\item Create Node
-\item Deploy Node (including setting up SSH KeyPair)
-\item Reboot a node
-\item Delete a node 
-\item Attach floating IP
-\item List floating IP 
+\item Python 2.7
+\item OpenStack 
+\item Swagger Codegen 2.0
+\item Apache Libcloud 2.3.0
+\item Chameleon Cloud/Horizon
 \end{itemize}
 
+\section{Introduction on Technologies Used}
+\subsection{Introduction to OpenStack}
+OpenStack is a set of software tools to build and manage public and private
+clouds using pooled virtual resources. OpenStack, managed by OpenStack
+Foundation, controls large pools of compute, storage and networking resources
+throughout a datacenter. OpenStack is available to users via OpenStack API,
+web-based dashboard or through RESTful web
+services~\cite{hid-sp18-516-www-wiki-openstack}. It easily allows users to
+deploy virtual machines that can handle a variety of tasks to manage a cloud
+environment on the fly. OpenStack is made up of a number of components. But
+there are mainly 9 key components~\cite{hid-sp18-516-www-opensource}:
+
+\begin{description}
+   \item[Nova:] This is the cloud computing fabric controller, which is the
+   main part of an IaaS system. It is used for managing and deploying large
+   number of instances to handle computing tasks. 
+   \item[Swift:] This is the object Storage system which is scalable
+   horizontally by simply adding new servers. It stores files and objects on
+   multiple disk drives and OpenStack is responsible for ensuring data
+   replication and integrity. 
+   \item[Cinder:] This provides block-level storage with OpenStack Compute
+   Instances and is important in scenarios where data access speed is the most
+   important consideration. 
+   \item[Neutron:] This provides networking capability for all the
+   OpenStack components and ensures that each component is able to communicate
+   effectively and efficiently. 
+   \item[Horizon:] This is the dashboard and the only GUI to OpenStack. It
+   allows system administrators to easily see what is going on in the cloud and
+   manage it as needed.  
+   \item[Keystone:] This maintains authentication service across the cloud
+   operating system and manages a central directory of users mapping to the
+   OpenStack services that they can access.  It supports different types of
+   authentications including username and password credentials, token-based and
+   AWS style logins.
+   \item[Glance:] This provides image services to OpenStack and allows
+   these images to be used as templates when deploying new virtual machine
+   instances. 
+   \item[Ceilometer:] This provides telemetry services/billing services to
+   individual users of the cloud. It provides all the information on the usage
+   reporting which keeps track of user's system of usage of the cloud.
+   \item[Heat:] This provides orchestration service that orchestrates
+   multiple composite cloud applications using templates. 
+\end{description}
+	
+This project uses Compute, Keystone, Horizon and Glance components which is 
+made available through libcloud APIs. 
+
+\subsection{Background on Apache libcloud}
+Apache libcloud is a Python library that hides the differences between 
+different cloud provider APIs and gives users the ability to manage different 
+cloud resources using a unified API. The users do not have to worry about the
+underlying architecture of the cloud provider. Libcloud supports more than 50
+cloud providers and allows users to manage resources such as the following
+categories~\cite{hid-sp18-516-www-libcloud}:
+
+\begin{itemize}
+\item \textbf{Cloud Servers and Block Storage}
+\item \textbf{Cloud Object Storage and CDN}
+\item \textbf{Load Balancers as a Service}
+\item \textbf{DNS as a Service}
+\item \textbf{Container Services}
+\item \textbf{Backup as a Service}
+\end{itemize}
+
+For the purposes of this project, we are only going to focus on Cloud Servers
+and Block Storage category. Libcloud's compute component that falls under the
+Cloud Servers and Block Storage category, can manage cloud and virtual servers
+of different cloud providers. Libcloud provides support for Python 2.7, PyPy,
+and Python 3~\cite{hid-sp18-516-www-libcloud-compute}. 
+
+Libcloud for OpenStack driver constructor takes different arguments with which
+the OpenStack installation can be done. Arguments describing things such as
+authentication service API URL, authentication service API version and so on 
+can be specified. Note that majority of the arguments to the driver 
+constructor are optional~\cite{hid-sp18-516-www-libcloud-openstack}. 
+
+To install the latest stable version of apache-libcloud, open a terminal and
+simply run~\cite{hid-sp18-516-www-libcloud}:
+\textbf{pip install apache-libcloud}
+
+\subsection{Background on Swagger Codegen}
+This project uses Swagger Codegen 2.0 to design the specifications of the
+services developed and to generate the code based on the specifications
+developed. Swagger is a tool for developing API specifications based on the
+OpenAPI Specification (OAS). It allows not only the specification, but the
+generation of code based on the specification in a variety of languages. 
+OpenAPI Specification is an API description format for REST APIs. An OpenAPI 
+file can be used to describe the entire API such as available endpoints 
+(/users) and operations on each endpoint (GET /users, POST /users), operation 
+parameters Input and Output for each operation, Authentication methods and 
+contact information, license, terms of use and other
+information~\cite{hid-sp18-516-www-swagger}. 
+
+Swagger Codegen is one of the major swagger tools that is used to generate
+server stubs and client libraries from the OpenAPI
+specification~\cite{hid-sp18-516-www-swagger}. We are going to use Python
+(flask) as the preferred language. The specification is written for OpenStack 
+VM deployment and the code has been generated using Swagger Codegen version 
+2.0. The same specification can be used for any other provider instead of 
+OpenStack as we are using libcloud. The generated code was used to implement 
+useful REST APIs using python scripts. Make sure to have Java 7 or 8 installed 
+on your system for Swagger Codegen to work. 
+
+\subsection{Chameleon Cloud}
+Chameleon is an experimental testbed funded by the NSF FutureCloud program. It
+is built over two sites, University of Chicago\(UC\) and Texas Advanced
+Computing Center\(TACC\). It offers a total of over 550 nodes and 5 PB of space
+in twelve Standard Cloud Unit\(SCU\) racks and about a quarter of the testbed 
+is configured with OpenStack KVM. Chameleon provides an installation of 
+OpenStack version 2015.1\(Kilo\) using the KVM virtualization
+technology~\cite{hid-sp18-516-las-handbook}. In this project, we are going to
+interact with Chameleon for TACC for monitoring the creation of virtual 
+machines and other tasks performed on the VM. The easiest way to interact 
+with Chameleon is via the GUI Horizon dashboard as described earlier. To log 
+in to the dashboard, we need to have Chameleon username and password which can 
+be created on the Chameleon portal. 
+
+\section{Methodology}
+
+\subsection{NIST Big Data Reference Architecture (NBDRA)}
+The NBDRA defines interfaces related to Infrastructure as a Service frameworks.
+This includes specific objects useful for OpenStack, Azure, and AWS, as well as
+others. It defines different objects that supports functions such as starting,
+stopping, suspending, resuming, migration, network configuration, assigning of
+resources for the virtual machines~\cite{hid-sp18-516-nist-vol8}. For this
+project, the following resources have been identified for interacting with the
+OpenStack framework:
+
+\begin{description}
+   \item \textbf{List Images} - This service lists all the public and private
+   images hosted on Chameleon Cloud. Images contain a virtual disk that has a
+   bootable operating system installed on it which are useful for creating
+   instances within the cloud. The GET method is used to retrieve all the 
+   images of the cloud. 
+
+   \item \textbf{List Flavor} - This service lists all flavors/sizes that are
+   used to create an instance. Flavors are useful for creating instances within
+   the cloud as they define a number of parameters like sizes of RAM, disk,
+   number of cores etc\. to specify what type of virtual machine to run. The 
+   GET method is used to retrieve all the flavors of the cloud. 
+
+   \item \textbf{Create an instance} - This service creates an instance on the
+   TACC datacenter of Chameleon cloud. The POST method is used to create an
+   instance. The attributes such as instance name, ssh keypair name, security
+   group name, flavor id and image id are sent as payload in the POST request.
+   Only the instance name is a required parameter, all other parameters are
+   picked up from the config file if they are not specified. 
+
+   \item \textbf{Import SSH Keypair} - This service allows to import the SSH
+   Keypair with the contents of the public key onto OpenStack. Keypairs are SSH
+   credentials that are injected into an instance when it is launched. The POST
+   method is used to import the SSH Keypair name and Public key file location.
+   All the parameters are sent as payload in the JSON format. 
+
+   \item \textbf{Attach Floating IP} - This service is used to associate the
+   floating IP to the instance from an existing pool of addresses. Once the
+   instance is created, in order to access the instance, a floating IP is
+   required. An instance has a private, fixed IP address and can also have a
+   public or floating IP address. Private IPs are automatically assigned on
+   instance creation but need to assign public IPs manually in order to
+   communicate with networks outside the cloud, including
+   internet~\cite{hid-sp18-516-www-manageips}. POST method is used for this 
+   and instance name is sent as payload. 
+
+   \item \textbf{Security Group} - This method creates a security group on the
+   cloud, if it is not present already. Security group rules are sets of IP
+   filter rules that are required as they enable users to ping and use SSH to
+   connect to the instance. Security groups define networking access and are
+   applied to all instances within a project~\cite{hid-sp18-516-www-secgroup}.
+   The security group name is sent as payload in the POST request. 
+
+   \item \textbf{Start an instance} - This method starts a stopped instance.
+   POST method is used, and instance name is sent as payload. 
+
+   \item \textbf{Stop an instance} - This method stops a running instance. POST
+   method is used, and instance name is sent as payload. 
+
+   \item \textbf{Delete an instance} - This method destroys the specified
+   instance. DELETE method is used and instance name is sent as the path
+   parameter. 
+
+\end{description}    
+
+\subsection{Swagger RESTful APIs}
+The objects described in the above section can be accessed by the REST service
+using its own base path. Base paths for the objects of OpenStack will be
+\textit{cloudmesh/openstack} followed by the object name. Following shows the
+list of APIs developed and implemented inside the Swagger service:
+
+\begin{description}
+\item \textbf{/images}: list images available on the cloud
+\item \textbf{/flavor}: lists the flavors available on the cloud
+\item \textbf{/listInstances}: lists all the instances available on the cloud
+\item \textbf{/createInstance}: creates an instance on the cloud
+\item \textbf{/deleteInstance}: deletes a specified instance
+\item \textbf{/stopInstance}: stops a specified instance
+\item \textbf{/startInstance}: starts a specified instance
+\item \textbf{/addkeypair}: imports the keypair name and content on the cloud
+\item \textbf{/floatingIP}: associates a floating IP with the specified 
+instance
+\item \textbf{/securitygroup}: creates a security group name with the security
+rules 
+\end{description}
+
+\subsection{Custom Configuration File}
+In order to access OpenStack from libcloud, authentication service API url is
+required. This is specified in a configuration file defined as
+\textit{class.yaml}. The authentication credentials including username,
+password, auth\_url, region\_name, project\_name, version\_number and so on 
+can be specified in this yaml file. In order to make the code portable with 
+other clouds, different cloud provider details can also be added to this yaml 
+file. By default, this project only supports cloud provider as \textit{TACC}. 
+
+Reading the configuration parameters from this file and using the REST APIs,
+users can easily create instances on the specified cloud without having to
+either use the command-line tools or the GUI form to enter the details one by
+one. The configuration details entered in the yaml file are obtained by
+downloading the environment file called openrc.sh file. This file provides
+project-specific contains the credentials that the OpenStack services can use.
+It can be downloaded from the web interface via the \textit{Access \& Security}
+link, then clicking on the \textit{API Access} tab and clicking on
+\textit{Download OpenStack RC File} on the top of the
+page~\cite{hid-sp18-516-www-openrc}. 
+
+The class.yaml file used for this project was provided in the handbook
+~\cite{hid-sp18-516-las-handbook}. I have updated the file with the latest 
+details and used it for this project. 
+
+\subsection{Using Cloud-Init with OpenStack}
+Cloud-init is the Ubuntu package that can handle early initialization of the
+cloud instance. It is a set of python scripts and utilities that is installed 
+in the Ubuntu Cloud Images. To use cloud-init, we need to use a cloud-init 
+enabled image and most Openstack based public cloud providers support it. 
+Some of the things it can configure are~\cite{hid-sp18-516-www-cloud-init}:
+
+\begin{itemize}
+\item setting up default locale
+\item adding ssh keys to user's \textit{.ssh/authorized\_keys} which can 
+allow them to log in
+\item setting up mount points
+\item Configuring network devices
+\item setting up a hostname
+\item generating ssh private keys
+\end{itemize}
+
+Cloud-init can be configured via user-data. User-data can be provided during
+instance launch time. User data can be specified in a number of input formats
+such as~\cite{hid-sp18-516-www-cloud-init}:
+
+\begin{description}
+   \item[Gzip Compressed Content:] Content compressed as gzip data will be
+   uncompressed and treated like if were not compressed. Compression of data 
+   is useful since there is a limit on the amount of user data that can be 
+   sent. It is limited to 16384 bytes. 
+   \item[User-Data Script:] This begins with \textit{#!} or
+   \textit{Content-Type: text/x-shellscript}. This script is executed during 
+   first boot at \textit{rc.local-like} level, which is very late in the boot 
+   sequence. 
+   \item[Cloud Config Data:] This content is \textit{cloud-config} data and it
+   begins with \textit{#cloud-config} or 
+   \textit{Content-Type: text/cloud-config}. 
+   \item[Mime Multi Part archive:] If the user wants to specify more than one
+   type of format for example, both user data script and cloud-config, it can 
+   be done using this format. 
+   \item[Include File:] This file is an \textit{include} file and contains a
+   list of urls, one per line. The content read from each of the URLs can be
+   gzipped, mime-multi-part or plain-text. It begins with \textit{#include} or
+   \textit{Content-Type: text/x-include-url}. 
+   \item[Upstart Job:] Like any other upstart job, the content is placed into a
+   file in /etc/init and will be consumed by upstart. This format begins with
+   \textit{#upstart-job} or \textit{Content-Type: text/upstart-job}. 
+   \item[Cloud Boothook:] This begins with \textit{#cloud-boothook} or
+   \textit{Content-Type: text/cloud-boothook}. This is the earliest hook 
+   available. The content is placed under /var/lib/cloud and then executed 
+   immediately. 
+   \item[Part Handler:] This is a \textit{part-handler} and begins with
+   \textit{#part-handler} or \textit{Content-Type: text/part-handler}. The 
+   content is python code that contains a list\_types method and a 
+   handle\_type method and is written to a file in /var/lib/cloud/data 
+   based on its filename. 
+\end{description}
+
+In this project, user data via user-data script is demonstrated. Libcloud for
+OpenStack allows to use cloud-init using the \textit{ex\_config\_drive} and
+\textit{ex\_userdata} arguments to create\_node function. The user data we are
+demonstrating is a list of shell commands that will be executed on instance
+creation and saved to an output file called \textit{output.txt} in the user's
+home directory. This user data is saved in the util.py file.
+
+Following is an example showing how the cloud-init arguments can be provided 
+in the libcloud create\_node function:
+
+\begin{figure}[htb]
+\begin{verbatim}
+
+userdata = '''#!/bin/bash
+echo 'System Information: $(uname -a)' | tee /home/cc/output.txt
+echo 'The time is now $(date -R)!' | tee -a /home/cc/output.txt
+echo 'The hostname is $(hostname)' | tee -a /home/cc/output.txt
+echo 'ifconfig details: $(ifconfig)' | tee -a /home/cc/output.txt
+'''
+node = driver.create_node(name='vm_name', image=image, size=size,
+                          ex_userdata=userdata, ex_config_drive=True)
+\end{verbatim}
+\caption{User-Data Scripts}
+~\cite{hid-sp18-516-www-cloud-init}\label{c:cloud-init-example1}
+\end{figure}
+
+Following is another example of user data using cloud-config format. This
+example just installs nginx and starts it when the instance is created.
+
+\begin{figure}[htb]
+\begin{verbatim}
+
+cloud_init_config = '''
+#cloud-config
+packages:
+ - nginx
+runcmd:
+ - service nginx start
+'''
+node = driver.create_node(name='cloud_init', image=image, size=size,
+                          ex_userdata=cloud_init_config, ex_config_drive=True)
+\end{verbatim}
+\caption{Cloud Config Example}
+~\cite{hid-sp18-516-www-libcloud-functions}\label{c:cloud-init-example2}
+\end{figure}
+
+As explained above, other user data formats can be sent as cloud-init user 
+data. Other cloud-config examples include Including users and groups, adding 
+a yum repository, Install and run chef recipes, Setup and run puppet, 
+Additional apt configuration etc. Cloud-init can prove to be very useful to 
+set up the cloud instances on creation depending on the user's
+requirement~\cite{hid-sp18-516-www-cloud-init}.
+
+\subsection{Libcloud functions}
+The libcloud libraries for compute object were imported using the following
+commands~\cite{hid-sp18-516-www-libcloud-functions}:
+
+\textbf{from libcloud.compute.types import Provider}
+\textbf{from libcloud.compute.providers import get\_driver} 
+
+The following table lists the libcloud functions that were leveraged during the
+development of the REST APIs~\cite{hid-sp18-516-www-libcloud-functions}. 
+
+\begin{table}[]
+\centering
+\caption{Libcloud functions leveraged}\label{tab:Description}
+\begin{tabular}{*{2}{c}}
+\toprule
+Description                      & Function \\
+\midrule
+To instantiate the driver        & libcloud.get\_driver (Provider.OPENSTACK) \\
+To list images                   & list\_images () \\
+To list flavor                   & list\_sizes () \\
+To list instances                & list\_nodes () \\
+To list floating IPs             & ex\_list\_floating\_ips () \\
+To list floating IP pools        & ex\_list\_floating\_ip\_pools () \\
+Attach floating ip to instance   & ex\_attach\_floating\_ip\_to\_node () \\
+To list keypairs                 & list\_key\_pairs () \\
+To create security group         & ex\_create\_security\_group () \\
+To create security group rules   & ex\_create\_security\_group\_rule () \\
+To get image from id 	         & get\_image (img\_id) \\
+To get flavor from id            & ex\_get\_size (flvr\_id) \\
+To create instance               & create\_node () \\
+To delete instance               & destroy\_node () \\
+To start instance                & ex\_start\_node () \\
+To stop instance                 & ex\_stop\_node () \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Project Artifacts}
+
+The Figure~\ref{c:project-artifacts} lists the artifacts provided as part of
+this project:
+\begin{figure}[htb]
+\begin{verbatim}
+
+Makefile
+Dockerfile
+util.py
+default_controller.py
+openstack.yaml
+class.yaml
+requirements.txt
+\end{verbatim}
+\caption{Project Artifacts}\label{c:project-artifacts}
+\end{figure}
+
+Code details
+\begin{itemize}
+
+\item \textit{Makefile}: Makefile contains different targets that perform
+different tasks like generate Swagger server-side code, copy files to the
+desired location, start and stop the Swagger service, import required packages
+for the REST services code, test different Swagger REST APIs, build docker
+image, run the docker container, start and stop the docker container.
+
+\item \textit{Dockerfile}: Dockerfile contains all the requirements needed to
+build the docker image such as installing Ubuntu, python 2.7, setting up pyenv,
+downloading swagger-codegen jar file, setting p the work directory, copying all
+the files to the desired work directory and starting the swagger service. 
+
+\item \textit{openstack.yaml}: This is a yaml document file which contains the
+definitions of the REST services for OpenStack deployment conforming to
+Swagger/OpenAPI 2.0.
+
+\item \textit{class.yaml}: This file contains the authentication information 
+and other configuration details related to OpenStack. As some information like
+username, password, keypairname is sensitive information, it needs to be
+configured in this file before execution. Default parameters for image, flavor,
+security group, can also be specified in this file.
+
+\item \textit{util.py}: python script for reading the configurations from
+class.yaml and cloud-init configuration for OpenStack.
+
+\item \textit{default\_controller.py}: This is a Swagger controller file with
+the actual implementation of the REST services for OpenStack.
+
+\item \textit{requirements.txt}: This file lists all the dependency python
+packages that are required for the project.
+\end{itemize}
+
+\section{Results}
+The Swagger REST services can be deployed as a standalone service or as docker
+container using the commands specified in the Makefile. The service can be
+accessed through browser or CURL utility to verify the execution. After running
+each test target specified in the Makefile (test\_VMs, test\_images,
+test\_flavors, test\_createVM etc.), we can log on to Chameleon cloud to verify
+and validate the result. Some screenshots of the test execution have been
+provided. 
+
+Figure~\ref{fig:list-images} shows the execution of the REST API for listing
+images of OpenStack available on the Chameleon cloud. 
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/images.png}
+        \caption{List Images}
+        \label{fig:list-images}
+\end{figure}
+
+Figure~\ref{fig:list-flavors} shows the execution of the REST API for listing
+flavors of OpenStack available on the Chameleon cloud. 
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/flavors.png}
+        \caption{List Flavors}
+        \label{fig:list-flavors}
+\end{figure}
+
+Figure~\ref{fig:createVM} shows the execution of the REST API for creating
+instances and the its availability on Chameleon cloud.
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/createVM.png}
+        \caption{Create Instance}
+        \label{fig:createVM}
+\end{figure}
+
+Figure~\ref{fig:listVM} shows the execution of the REST API for listing all the
+instances of OpenStack available on the Chameleon cloud. 
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/listVMs.png}
+        \caption{List VMs}
+        \label{fig:listVM}
+\end{figure}
+
+Figure~\ref{fig:floatingIP} shows the execution of the REST API for associating
+floating IP of instance \textit{test-VM2-516} and its result on Chameleon 
+cloud.
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/floatingip.png}
+        \caption{Floating IP}
+        \label{fig:floatingIP}
+\end{figure}
+
+Figure~\ref{fig:deleteVM} shows the execution of the REST API for deleting
+instance of OpenStack.
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/deleteVM.png}
+        \caption{Delete Instance}
+        \label{fig:deleteVM}
+\end{figure}
+
+Figure~\ref{fig:stopVM} shows the execution of the REST API for stopping
+instance of OpenStack and its result on the Chameleon cloud.
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]{images/stopVM.png}
+        \caption{Shut Off Instance}
+        \label{fig:stopVM}
+\end{figure}
+
+Once the instance is up and running, we can log in to that instance via
+\textit{ssh} using the floating IP associated with the instance. The user
+\textit{cc} allows automatic login to the instance. We have a REST API that
+allows associating floating IP to the instance as seen in the screenshots shown
+earlier. Following is the command to login to the instance:
+\textit{ssh cc@<floatingIPofVM>}
+
+Once logged in, we can navigate to /home/cc/ and view the output of the 
+commands executed via cloud-init. The result is saved in output.txt.
+
+\section{Conclusion}
+In this project, we were able to substantially show how the OpenStack instances
+can be deployed using Apache libcloud. We see how Apache libcloud can be
+leveraged to perform different tasks like create/delete/start/stop instances or
+attach floating IP and so on on the OpenStack cloud using the unified API
+abstracting away the underlying details of the cloud provider. We also
+demonstrated how the userdata can be sent on the cloud during instance creation
+using cloud-init configuration and how it can be used to perform different user
+defined tasks. All this was achieved with the help of python scripts that
+leveraged libcloud into RESTful APIs using the Swagger specifications that was
+created in OpenAPI format. This project currently uses TACC as the default
+testbed for interacting with Chameleon cloud. A substantial future work would 
+be take input from user to specify on which testbed/ cloud the user would like 
+to deploy their instances. 
 
 \begin{acks}
 
-  The authors would like to thank Dr.~Gregor~von~Laszewski for his
+  The author would like to thank Dr.~Gregor~von~Laszewski for his
   support and suggestions to write this paper.
 
 \end{acks}
