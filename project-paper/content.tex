@@ -32,7 +32,6 @@ cloud platform.
 \keywords{hid-sp18-516, Swagger, REST, Apache libcloud, Python}
 
 \maketitle
-
 \section{Introduction}
 OpenStack is an open-source cloud-computing service and is available for free
 that provides virtual servers and resources to customers. It is mostly 
@@ -55,7 +54,7 @@ libcloud to abstract the communication with the cloud.
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]
-        {images/proj-architecture.png}
+        {images/proj-architecture.PNG}
         \caption{Project Architecture}
         \label{fig:project-architecture}
 \end{figure}
@@ -69,9 +68,9 @@ libcloud to abstract the communication with the cloud.
 \item Chameleon Cloud/Horizon
 \end{itemize}
 
-\section{Introduction on Technologies Used}
+\section{Background on Technologies Used}
 
-\subsection{Background on OpenStack}
+\subsection{OpenStack}
 OpenStack is a set of software tools to build and manage public and private
 clouds using pooled virtual resources. OpenStack, managed by OpenStack
 Foundation, controls large pools of compute, storage and networking resources
@@ -117,7 +116,7 @@ there are mainly 9 key components~\cite{hid-sp18-516-www-opensource}:
 This project uses Compute, Keystone, Horizon and Glance components which is 
 made available through libcloud APIs. 
 
-\subsection{Background on Apache libcloud}
+\subsection{Apache libcloud}
 Apache libcloud is a Python library that hides the differences between 
 different cloud provider APIs and gives users the ability to manage different 
 cloud resources using a unified API. The users do not have to worry about the
@@ -175,11 +174,11 @@ on your system for Swagger Codegen to work.
 
 \subsection{Chameleon Cloud}
 Chameleon is an experimental testbed funded by the NSF FutureCloud program. It
-is built over two sites, University of Chicago\(UC\) and Texas Advanced
-Computing Center\(TACC\). It offers a total of over 550 nodes and 5 PB of space
-in twelve Standard Cloud Unit\(SCU\) racks and about a quarter of the testbed 
+is built over two sites, University of Chicago (UC) and Texas Advanced
+Computing Center (TACC). It offers a total of over 550 nodes and 5 PB of space
+in twelve Standard Cloud Unit (SCU) racks and about a quarter of the testbed 
 is configured with OpenStack KVM. Chameleon provides an installation of 
-OpenStack version 2015.1\(Kilo\) using the KVM virtualization
+OpenStack version 2015.1 (Kilo) using the KVM virtualization
 technology~\cite{hid-sp18-516-las-handbook}. In this project, we are going to
 interact with Chameleon for TACC for monitoring the creation of virtual 
 machines and other tasks performed on the VM. The easiest way to interact 
@@ -324,29 +323,29 @@ such as~\cite{hid-sp18-516-www-cloud-init}:
    uncompressed and treated like it were not compressed. Compression of data 
    is useful since there is a limit on the amount of user data that can be 
    sent. It is limited to 16384 bytes. 
-   \item[User-Data Script:] This begins with \textit{#!} or
+   \item[User-Data Script:] This begins with \textit{\#!} or
    \textit{Content-Type: text/x-shellscript}. This script is executed during 
    first boot at \textit{rc.local-like} level, which is very late in the boot 
    sequence. 
    \item[Cloud Config Data:] This content is \textit{cloud-config} data and it
-   begins with \textit{#cloud-config} or 
+   begins with \textit{\#cloud-config} or 
    \textit{Content-Type: text/cloud-config}. 
    \item[Mime Multi Part archive:] If the user wants to specify more than one
    type of format for example, both user data script and cloud-config, it can 
    be done using this format. 
    \item[Include File:] This file is an \textit{include} file and contains a
    list of urls, one per line. The content read from each of the URLs can be
-   gzipped, mime-multi-part or plain-text. It begins with \textit{#include} or
+   gzipped, mime-multi-part or plain-text. It begins with \textit{\#include} or
    \textit{Content-Type: text/x-include-url}. 
    \item[Upstart Job:] Like any other upstart job, the content is placed into a
    file in /etc/init and will be consumed by upstart. This format begins with
-   \textit{#upstart-job} or \textit{Content-Type: text/upstart-job}. 
-   \item[Cloud Boothook:] This begins with \textit{#cloud-boothook} or
+   \textit{\#upstart-job} or \textit{Content-Type: text/upstart-job}. 
+   \item[Cloud Boothook:] This begins with \textit{\#cloud-boothook} or
    \textit{Content-Type: text/cloud-boothook}. This is the earliest hook 
    available. The content is placed under /var/lib/cloud and then executed 
    immediately. 
    \item[Part Handler:] This is a \textit{part-handler} and begins with
-   \textit{#part-handler} or \textit{Content-Type: text/part-handler}. The 
+   \textit{\#part-handler} or \textit{Content-Type: text/part-handler}. The 
    content is python code that contains a list\_types method and a 
    handle\_type method and is written to a file in /var/lib/cloud/data 
    based on its filename. 
@@ -365,7 +364,7 @@ in the libcloud create\_node function:
 \begin{figure}[htb]
 \begin{verbatim}
 
-userdata = '''#!/bin/bash
+userdata = ```#!/bin/bash
 echo 'System Information: $(uname -a)' | tee /home/cc/output.txt
 echo 'The time is now $(date -R)!' | tee -a /home/cc/output.txt
 echo 'The hostname is $(hostname)' | tee -a /home/cc/output.txt
@@ -384,7 +383,7 @@ example just installs nginx and starts it when the instance is created.
 \begin{figure}[htb]
 \begin{verbatim}
 
-cloud_init_config = '''
+cloud_init_config = ```
 #cloud-config
 packages:
  - nginx
@@ -410,6 +409,7 @@ The libcloud libraries for compute object were imported using the following
 commands~\cite{hid-sp18-516-www-libcloud-functions}:
 
 \textbf{from libcloud.compute.types import Provider}
+
 \textbf{from libcloud.compute.providers import get\_driver} 
 
 The following table lists the libcloud functions that were leveraged during 
@@ -572,7 +572,7 @@ Once the instance is up and running, we can log in to that instance via
 \textit{cc} allows automatic login to the instance. We have a REST API that
 allows associating floating IP to the instance as seen in the screenshots shown
 earlier. Following is the command to login to the instance:
-\textit{ssh cc@<floatingIPofVM>}
+\textit{ssh cc@floatingIPofVM}
 
 Once logged in, we can navigate to /home/cc/ and view the output of the 
 commands executed via cloud-init. The result is saved in output.txt.
