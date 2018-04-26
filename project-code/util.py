@@ -20,7 +20,7 @@ try:
         os_default_secgroup = cred['clouds']['tacc']['default']['secgroup']
         os_default_keypair = cred['clouds']['tacc']['default']['keypairname']
 
-        if auth_username == "TBD" or auth_password =="TBD" or os_default_keypair == "TBD":
+        if auth_username == "TBD" or auth_password =="TBD":
             logging.error('Please save openstack Chameleon cloud credentials in class.yaml')
             sys.exit(1)
 

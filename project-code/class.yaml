@@ -48,5 +48,5 @@ clouds:
       flavor: m1.small
       image: CC-Ubuntu16.04-20180205 
       secgroup: default
-      keypairname: TBD
+      keypairname: openstackVM
 
