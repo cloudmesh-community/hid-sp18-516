@@ -38,10 +38,13 @@ clean:
 	rm -r $(CONFIGDIR)
 
 docker-build:
-	sudo docker build -t cloudmesh-localhost .
+	docker build -t cloudmesh-localhost .
 
 docker-start:
-	sudo docker run -p 8080:8080 cloudmesh-localhost 
+	docker run -p 8080:8080 cloudmesh-localhost 
 	
 docker-stop:
-	sudo docker stop $$(sudo docker ps -a -q -f status=running)
+	docker stop $$(docker ps -a -q -f status=running)
+
+docker-start-interactive:
+	docker exec -it $(docker container ls | awk '{print $1}' | grep -v "CONTAINER") bash
