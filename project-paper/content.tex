@@ -308,7 +308,7 @@ such as~\cite{hid-sp18-516-www-cloud-init}:
 
 \begin{description}
    \item[Gzip Compressed Content:] Content compressed as gzip data will be
-   uncompressed and treated like if were not compressed. Compression of data 
+   uncompressed and treated like it were not compressed. Compression of data 
    is useful since there is a limit on the amount of user data that can be 
    sent. It is limited to 16384 bytes. 
    \item[User-Data Script:] This begins with \textit{#!} or
@@ -343,8 +343,8 @@ In this project, user data via user-data script is demonstrated. Libcloud for
 OpenStack allows to use cloud-init using the \textit{ex\_config\_drive} and
 \textit{ex\_userdata} arguments to create\_node function. The user data we are
 demonstrating is a list of shell commands that will be executed on instance
-creation and saved to an output file called \textit{output.txt} in the user's
-home directory. This user data is saved in the util.py file.
+creation and the result is saved to an output file called \textit{output.txt} 
+in the user's home directory. This userdata is configured in the util.py file.
 
 Following is an example showing how the cloud-init arguments can be provided 
 in the libcloud create\_node function:
@@ -399,8 +399,9 @@ commands~\cite{hid-sp18-516-www-libcloud-functions}:
 \textbf{from libcloud.compute.types import Provider}
 \textbf{from libcloud.compute.providers import get\_driver} 
 
-The following table lists the libcloud functions that were leveraged during the
-development of the REST APIs~\cite{hid-sp18-516-www-libcloud-functions}. 
+The following table lists the libcloud functions that were leveraged during 
+the development of the REST 
+APIs~\cite{hid-sp18-516-www-libcloud-functions}. 
 
 \begin{table}[]
 \centering
@@ -458,8 +459,8 @@ image, run the docker container, start and stop the docker container.
 
 \item \textit{Dockerfile}: Dockerfile contains all the requirements needed to
 build the docker image such as installing Ubuntu, python 2.7, setting up pyenv,
-downloading swagger-codegen jar file, setting p the work directory, copying all
-the files to the desired work directory and starting the swagger service. 
+downloading swagger-codegen jar file, setting up the work directory, copying 
+all the files to the desired work directory and starting the swagger service. 
 
 \item \textit{openstack.yaml}: This is a yaml document file which contains the
 definitions of the REST services for OpenStack deployment conforming to
@@ -467,9 +468,9 @@ Swagger/OpenAPI 2.0.
 
 \item \textit{class.yaml}: This file contains the authentication information 
 and other configuration details related to OpenStack. As some information like
-username, password, keypairname is sensitive information, it needs to be
+username, password is sensitive information, it needs to be
 configured in this file before execution. Default parameters for image, flavor,
-security group, can also be specified in this file.
+security group, keypair name can also be specified in this file.
 
 \item \textit{util.py}: python script for reading the configurations from
 class.yaml and cloud-init configuration for OpenStack.
@@ -565,7 +566,7 @@ commands executed via cloud-init. The result is saved in output.txt.
 
 \section{Conclusion}
 In this project, we were able to substantially show how the OpenStack instances
-can be deployed using Apache libcloud. We see how Apache libcloud can be
+can be deployed using Apache libcloud. We show how Apache libcloud can be
 leveraged to perform different tasks like create/delete/start/stop instances or
 attach floating IP and so on on the OpenStack cloud using the unified API
 abstracting away the underlying details of the cloud provider. We also
