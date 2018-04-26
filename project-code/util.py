@@ -5,7 +5,6 @@ from os.path import expanduser
 
 HOME = expanduser("~")
 CREDFILE = HOME+"/.cloudmesh/class.yaml"
-#credFile = "/home/spathan/.cloudmesh/class.yaml"
 
 try:
     cred = yaml.load(open(CREDFILE))
@@ -28,6 +27,16 @@ try:
 except OSError:
     logging.error('Please create class.yaml with credential info')
     sys.exit(1) 
+
+# cloud-init config variable
+# Enter the commands you would like to execute on the instance created
+
+userdata = '''#!/bin/bash
+echo "System Information: $(uname -a)" | tee /home/cc/output.txt
+echo "The time is now $(date -R)!" | tee -a /home/cc/output.txt
+echo "The hostname is $(hostname)" | tee -a /home/cc/output.txt
+echo "ifconfig details: $(ifconfig)" | tee -a /home/cc/output.txt
+'''
 
 def getOSAuthUsername():
     return auth_username
@@ -55,3 +64,8 @@ def getOSDefaultSecGroup():
 
 def getOSDefaultKeypairName():
     return os_default_keypair
+
+def getOSUserData():
+    return userdata
+
+

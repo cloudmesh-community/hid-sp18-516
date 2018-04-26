@@ -224,7 +224,6 @@ definitions:
         type: "string"
       keypair_name:
         type: "string"
-       
   DELETE:
     type: "object"
     required:

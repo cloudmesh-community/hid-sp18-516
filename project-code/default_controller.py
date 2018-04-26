@@ -12,11 +12,7 @@ from swagger_server import util
 
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
-import time
-import yaml
 import util
-import sys
-import logging
 
 auth_username = util.getOSAuthUsername()
 auth_password = util.getOSAuthPassword()
@@ -27,7 +23,9 @@ os_default_flavor = util.getOSDefaultFlavor()
 os_default_image = util.getOSDefaultImage()
 os_default_secgroup = util.getOSDefaultSecGroup()
 os_default_keypair = util.getOSDefaultKeypairName()
+os_user_data = util.getOSUserData()
 
+#instantiate the OpenStack driver
 provider = get_driver(Provider.OPENSTACK)
 conn = provider(auth_username,
                 auth_password,
@@ -54,40 +52,39 @@ def addfloating_ip(param=None):  # noqa: E501
     print('Checking for existing instance...')
     instance_exists = False
     for instance in conn.list_nodes():
-        print(instance.name)
-        print(instance_name)
         if instance.name == inst_name:
+            print(inst_name)
             testing_instance = instance
+            print(testing_instance)
             instance_exists = True
-            break
-        else:
-            return 'Instance does not exist, exiting!'
+            #break
 
-    print('Checking for unused Floating IP...')
-    unused_floating_ip = None
-    for floating_ip in conn.ex_list_floating_ips():
-        if not floating_ip.node_id:
-            unused_floating_ip = floating_ip
-            print(unused_floating_ip)
-            break
+            print('Checking for unused Floating IP...')
+            unused_floating_ip = None
+            for floating_ip in conn.ex_list_floating_ips():
+                if not floating_ip.node_id:
+                    unused_floating_ip = floating_ip
+                    print(unused_floating_ip)
+                    break
 
-    if not unused_floating_ip and len(conn.ex_list_floating_ip_pools()):
-        pool = conn.ex_list_floating_ip_pools()[0]
-        print('Allocating new Floating IP from pool: {}'.format(pool))
-        unused_floating_ip = pool.create_floating_ip()
+            if not unused_floating_ip and len(conn.ex_list_floating_ip_pools()):
+                pool = conn.ex_list_floating_ip_pools()[0]
+                print('Allocating new Floating IP from pool: {}'.format(pool))
+                unused_floating_ip = pool.create_floating_ip()
 
 #To determine whether a public IP address is assigned to your instance:
-    public_ip = None
-    if len(testing_instance.public_ips):
-        public_ip = testing_instance.public_ips[0]
-        print('Public IP found: {}'.format(public_ip))
+            public_ip = None
+            if len(testing_instance.public_ips):
+                public_ip = testing_instance.public_ips[0]
+                print('Public IP found: {}'.format(public_ip))
 
 #Attach the floating IP address to the instance:
-    if public_ip:
-        return 'Instance ' + testing_instance.name + ' already has a public ip. Skipping attachment.'
-    elif unused_floating_ip:
-        conn.ex_attach_floating_ip_to_node(testing_instance, unused_floating_ip)
-        return 'Floating IP was attached successfully!'
+            if public_ip:
+                return 'Instance ' + testing_instance.name + ' already has a public ip. Skipping attachment.'
+            elif unused_floating_ip:
+                conn.ex_attach_floating_ip_to_node(testing_instance, unused_floating_ip)
+                return 'Floating IP was attached successfully!'
+    return 'Instance does not exist, exiting!'
 
 def addkeypair(params=None):  # noqa: E501
     """addkeypair
@@ -100,7 +97,7 @@ def addkeypair(params=None):  # noqa: E501
     :rtype: None
     """
     keypair_name = params['keypair_name']
-    public_key = params['public_key']
+    pub_key_file = params['public_key']
 
     if connexion.request.is_json:
         params = KEYPAIR.from_dict(connexion.request.get_json())  # noqa: E501
@@ -219,7 +216,7 @@ def create_vm(attributes=None):  # noqa: E501
     if instance_exists:
         return('Instance ' + testing_instance.name + ' already exists. Skipping creation.')
     else:
-        testing_instance = conn.create_node(name=instance_name, image=image, size=flavor, ex_keyname=keypair_name, ex_security_groups=[all_in_one_security_group])
+        testing_instance = conn.create_node(name=instance_name, image=image, size=flavor, ex_keyname=keypair_name, ex_security_groups=[all_in_one_security_group], ex_userdata=os_user_data, ex_config_drive=True)
         #testing_instance = conn.create_node(name=instance_name, image=image, size=flavor)
         return 'Instance was created successfully'
 

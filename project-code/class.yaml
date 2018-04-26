@@ -35,13 +35,13 @@ clouds:
     version: liberty
     credentials:
       OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000
-      OS_PASSWORD: TBD
+      OS_PASSWORD: TBD 
       OS_TENANT_NAME: CH-819337
       OS_TENANT_ID: CH-819337
       OS_PROJECT_NAME: CH-819337
       OS_PROJECT_DOMAIN_ID: default
       OS_USER_DOMAIN_ID: default
-      OS_USERNAME: TBD 
+      OS_USERNAME: TBD
       OS_VERSION: liberty
       OS_REGION_NAME: RegionOne
     default:
