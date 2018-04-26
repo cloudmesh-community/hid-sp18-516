@@ -85,4 +85,6 @@ docker-start-detach-mode:
 
 docker-stop:
 	docker stop $$(docker ps -a -q -f status=running)
-
+	
+docker-start-interactive:
+	docker exec -it $$(docker container ls | awk '{print $$1}' | grep -v "CONTAINER") bash
