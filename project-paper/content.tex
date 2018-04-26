@@ -47,6 +47,19 @@ virtual machines. The motivation behind using Libcloud is to ensure that the
 application is portable in terms of the cloud service provider without having 
 to rewrite the Swagger specification file.
 
+Figure~\ref{fig:project-architecture} shows the high level architecture. The 
+application consists of a REST server implemented using Swagger. The server
+provides several APIs which allow provisioning and manipulation of different
+resources on the OpenStack cloud. This implementation of the REST server uses 
+libcloud to abstract the communication with the cloud. 
+
+\begin{figure}[!ht]
+        \centering\includegraphics[width=\columnwidth]
+        {images/proj-architecture.png}
+        \caption{Project Architecture}
+        \label{fig:project-architecture}
+\end{figure}
+
 \section{Technologies Used}
 \begin{itemize}
 \item Python 2.7
