@@ -17,8 +17,10 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * This servie has been tested with 2 VMs. The second VM was set to passwordless SSH. VM1 does ssh to VM2 and executes the specified command on VM2.
 
 ## Execution Details :
-* Make sure you have swagger-codegen-cli.jar installed in your working directory
+* Make sure you have swagger-codegen-cli.jar installed in your working directory if executing without docker
 * git clone the swagger directory
+
+## Execution without using docker 
 * On your terminal, using the Makefile provided run the following commands:
   * `make service`
   * `make start`
@@ -35,21 +37,22 @@ The REST service should conform to Swagger/OpenAPI 2.0 specification.
 * To clean the directories, run:
   * `make clean`
   
-* To create a docker image and build the image, simply run:
-  * `docker-build`
-  * `docker-start`
+## Execution using docker
+* To create a docker image and start the image on the container, simply run:
+  * `make docker-build`
+  * `make docker-start`
   
   * To test the service on the docker container, first you need to login to the container using the command:
   
-  `sudo docker exec -it <containerID> bash`
+  `make docker-start-interactive`
   
-  * Then execute the following curl command on the shell of the container;
-  ```
-  curl -H "Authorization: Basic YWRtaW46c2VjcmV0" -H "Content-Type:application/json" -X POST -d '{"userName": "<username>", "hostName": "localhost", "command": "ls -l"}' http://localhost:8080/cloudmesh/localhost
-  ```
+  * Then execute the following curl command on the shell of the container:
+  
+  `make test`
+  
   * To stop the running container, first `exit` the container that you were logged into and simply run the following command:
   
-  `sudo docker stop $(sudo docker ps -a -q -f status=running)`
+  `make docker-stop`
   
 ## Examples that you can use to test the service, just add them in the `test` target in the Makefile:
 ```
@@ -91,4 +94,9 @@ You have to login with proper credentials
 ## Note :
 * Since I am using POST, the execution is done via curl. It takes 3 arguments: `hostname`, `username` and `command`.
 * Use the correct base64 encoded string in the header for the authentication.
-* If you use `localhost` as hostname for testing, it waits for the authentication on the server-side to execute the command, make sure to enter your password on the server-side.
+
+## Video
+
+I have created a video on how to execute this assignment. Please find the link below:
+
+[Swagger Video Link](https://iu.box.com/s/g689mm5q33j1h9idwmyend0jtxs2evkj)
