@@ -26,15 +26,15 @@
   
   * ```make docker-start```
   
-* If you need to start the container in detached mode, you can use following make command.
-  
-  * ```make docker-start-detach-mode```
-  
 * If you need to stop the docker container, use the following make command.
   
   * ```make docker-stop```
 
-* Test the service using the following make commands
+* In order to test the APIs, you first need to `login` to the container. To do that, simply run:
+  
+  * ```make docker-start-interactive```
+  
+* Test the service using the following make commands from within the container
   
   * ```make test_VMs```
   
@@ -98,3 +98,8 @@
  
 * After executing each target, you can log onto Chameleon cloud and verify the result.
   
+## Final Project Video Link
+
+I have created a video explaining how to execute the final project. This link is provided below:
+
+[Final Project Execution Video](https://iu.box.com/s/bp4o8hih5ovjk6qtdnua32zyslqns7vb)
