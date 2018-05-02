@@ -22,11 +22,11 @@ about the underlying architecture. The users can create an instance, list
 instances, add floating ip to the instance, add ssh keypair and more, provided 
 the user has permission to perform these activities. Using the REST API 
 endpoints, a fully-fledged instance can be created instead of clicking on the 
-UI form and filling in the details to get the instance created. This project 
-also demonstrates the use of cloud-init to send userdata on instance creation 
-by executing some basic shell commands. This project chooses OpenStack as the 
-cloud infrastructure since it is ever-growing and one of the most popular 
-cloud platform.
+UI form and filling in the details to get the instance created. We also 
+demonstrates the use of cloud-init to send userdata on instance creation 
+by executing some basic shell commands. To achieve this, we choose 
+OpenStack as the cloud infrastructure since it is ever-growing and one of 
+the most popular cloud platform.
 \end{abstract}
 
 \keywords{hid-sp18-516, Swagger, REST, Apache libcloud, Python}
@@ -59,6 +59,7 @@ libcloud to abstract the communication with the cloud.
 \end{figure}
 
 \section{Technologies Used}
+This section lists the techologies that were used in this project:
 \begin{itemize}
 \item Python 2.7
 \item OpenStack 
@@ -124,12 +125,12 @@ cloud providers and allows users to manage resources such as the following
 categories~\cite{hid-sp18-516-www-libcloud}:
 
 \begin{itemize}
-\item \textbf{Cloud Servers and Block Storage}
-\item \textbf{Cloud Object Storage and CDN}
-\item \textbf{Load Balancers as a Service}
-\item \textbf{DNS as a Service}
-\item \textbf{Container Services}
-\item \textbf{Backup as a Service}
+\item Cloud Servers and Block Storage
+\item Cloud Object Storage and CDN
+\item Load Balancers as a Service
+\item DNS as a Service
+\item Container Services
+\item Backup as a Service
 \end{itemize}
 
 For the purposes of this project, we are only going to focus on Cloud Servers
@@ -186,6 +187,13 @@ in to the dashboard, we need to have Chameleon username and password which can
 be created on the Chameleon portal. 
 
 \section{Methodology}
+We are going to focus on identifying resources related to OpenStack for
+deploying an instance of a virtual machine using the REST APIs instead of
+using the GUI dashboard by selecting multiple options. The resources 
+identified can be considered as part of NIST Big Data Reference 
+Architecture (NBDRA). The methodology can be divided into documenting various
+resources, using these resources to provide interfaces to access or create
+individual resources using the OpenStack libcloud API.
 
 \subsection{NIST Big Data Reference Architecture (NBDRA)}
 The NBDRA defines interfaces related to Infrastructure as a Service frameworks.
@@ -197,32 +205,32 @@ project, the following resources have been identified for interacting with the
 OpenStack framework:
 
 \begin{description}
-   \item \textbf{List Images} - This service lists all the public and private
+   \item[List Images:] This service lists all the public and private
    images hosted on Chameleon Cloud. Images contain a virtual disk that has a
    bootable operating system installed on it which are useful for creating
    instances within the cloud. The GET method is used to retrieve all the 
    images of the cloud. 
 
-   \item \textbf{List Flavor} - This service lists all flavors/sizes that are
+   \item[List Flavor:] This service lists all flavors/sizes that are
    used to create an instance. Flavors are useful for creating instances within
    the cloud as they define a number of parameters like sizes of RAM, disk,
    number of cores etc\. to specify what type of virtual machine to run. The 
    GET method is used to retrieve all the flavors of the cloud. 
 
-   \item \textbf{Create an instance} - This service creates an instance on the
+   \item[Create an instance:] This service creates an instance on the
    TACC datacenter of Chameleon cloud. The POST method is used to create an
    instance. The attributes such as instance name, ssh keypair name, security
    group name, flavor id and image id are sent as payload in the POST request.
    Only the instance name is a required parameter, all other parameters are
    picked up from the config file if they are not specified. 
 
-   \item \textbf{Import SSH Keypair} - This service allows to import the SSH
+   \item[Import SSH Keypair:] This service allows to import the SSH
    Keypair with the contents of the public key onto OpenStack. Keypairs are SSH
    credentials that are injected into an instance when it is launched. The POST
    method is used to import the SSH Keypair name and Public key file location.
    All the parameters are sent as payload in the JSON format. 
 
-   \item \textbf{Attach Floating IP} - This service is used to associate the
+   \item[Attach Floating IP:] This service is used to associate the
    floating IP to the instance from an existing pool of addresses. Once the
    instance is created, in order to access the instance, a floating IP is
    required. An instance has a private, fixed IP address and can also have a
@@ -232,20 +240,20 @@ OpenStack framework:
    internet~\cite{hid-sp18-516-www-manageips}. POST method is used for this 
    and instance name is sent as payload. 
 
-   \item \textbf{Security Group} - This method creates a security group on the
+   \item[Security Group:] This method creates a security group on the
    cloud, if it is not present already. Security group rules are sets of IP
    filter rules that are required as they enable users to ping and use SSH to
    connect to the instance. Security groups define networking access and are
    applied to all instances within a project~\cite{hid-sp18-516-www-secgroup}.
    The security group name is sent as payload in the POST request. 
 
-   \item \textbf{Start an instance} - This method starts a stopped instance.
+   \item[Start an instance:] This method starts a stopped instance.
    POST method is used, and instance name is sent as payload. 
 
-   \item \textbf{Stop an instance} - This method stops a running instance. POST
+   \item[Stop an instance:] This method stops a running instance. POST
    method is used, and instance name is sent as payload. 
 
-   \item \textbf{Delete an instance} - This method destroys the specified
+   \item[Delete an instance:] This method destroys the specified
    instance. DELETE method is used and instance name is sent as the path
    parameter. 
 
@@ -258,17 +266,17 @@ using its own base path. Base paths for the objects of OpenStack will be
 list of APIs developed and implemented inside the Swagger service:
 
 \begin{description}
-\item \textbf{/images}: list images available on the cloud
-\item \textbf{/flavor}: lists the flavors available on the cloud
-\item \textbf{/listInstances}: lists all the instances available on the cloud
-\item \textbf{/createInstance}: creates an instance on the cloud
-\item \textbf{/deleteInstance}: deletes a specified instance
-\item \textbf{/stopInstance}: stops a specified instance
-\item \textbf{/startInstance}: starts a specified instance
-\item \textbf{/addkeypair}: imports the keypair name and content on the cloud
-\item \textbf{/floatingIP}: associates a floating IP with the specified 
+\item[/images:] list images available on the cloud
+\item[/flavor:] lists the flavors available on the cloud
+\item[/listInstances:] lists all the instances available on the cloud
+\item[/createInstance:] creates an instance on the cloud
+\item[/deleteInstance:] deletes a specified instance
+\item[/stopInstance:] stops a specified instance
+\item[/startInstance:] starts a specified instance
+\item[/addkeypair:] imports the keypair name and content on the cloud
+\item[/floatingIP:] associates a floating IP with the specified 
 instance
-\item \textbf{/securitygroup}: creates a security group name with the security
+\item[/securitygroup:] creates a security group name with the security
 rules 
 \end{description}
 
@@ -405,14 +413,24 @@ requirement~\cite{hid-sp18-516-www-cloud-init}.
 
 \subsection{Libcloud functions}
 The libcloud libraries for compute object were imported using the following
-commands~\cite{hid-sp18-516-www-libcloud-functions}:
+commands~\ref{c:libcloud-libraries}:
+\begin{figure}[htb]
 
-\textbf{from libcloud.compute.types import Provider}
+\begin{verbatim}
 
-\textbf{from libcloud.compute.providers import get\_driver} 
+from libcloud.compute.types import Provider
 
-The following table lists the libcloud functions that were leveraged during 
-the development of the REST 
+from libcloud.compute.providers import get_driver
+
+\end{verbatim}
+
+\caption{Libcloud libraries
+~\cite{hid-sp18-516-www-libcloud-functions}}\label{c:libcloud-libraries}
+
+\end{figure}
+
+The following table~\ref{tab:Description} lists the libcloud functions that 
+were leveraged during the development of the REST 
 APIs~\cite{hid-sp18-516-www-libcloud-functions}. 
 
 \begin{table}[]
@@ -461,7 +479,7 @@ requirements.txt
 \end{figure}
 
 Code details
-\begin{itemize}
+\begin{description}
 
 \item \textit{Makefile}: Makefile contains different targets that perform
 different tasks like generate Swagger server-side code, copy files to the
@@ -492,7 +510,7 @@ the actual implementation of the REST services for OpenStack.
 
 \item \textit{requirements.txt}: This file lists all the dependency python
 packages that are required for the project.
-\end{itemize}
+\end{description}
 
 \section{Results}
 The Swagger REST services can be deployed as a standalone service or as docker
@@ -504,7 +522,9 @@ and validate the result. Some screenshots of the test execution have been
 provided. 
 
 Figure~\ref{fig:list-images} shows the execution of the REST API for listing
-images of OpenStack available on the Chameleon cloud. 
+images of OpenStack available on the Chameleon cloud. As you can see, all the
+images, both public and private that are available on the cloud for OpenStack
+have been listed.
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/images.png}
@@ -512,7 +532,9 @@ images of OpenStack available on the Chameleon cloud.
 \end{figure}
 
 Figure~\ref{fig:list-flavors} shows the execution of the REST API for listing
-flavors of OpenStack available on the Chameleon cloud. 
+flavors of OpenStack available on the Chameleon cloud. As you can, all the 
+flavors that are needed for instance creation are listed, and the user can 
+choose any flavor from this list that is required for creating the instance.  
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/flavors.png}
@@ -520,15 +542,19 @@ flavors of OpenStack available on the Chameleon cloud.
 \end{figure}
 
 Figure~\ref{fig:createVM} shows the execution of the REST API for creating
-instances and the its availability on Chameleon cloud.
+instances and its availability on Chameleon cloud. As you can see, we were
+able to successfully create two instances \textit{test-VM1-516} and 
+\textit{test-VM2-516} and verify that it is listed on the UI.
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/createVM.png}
         \caption{Create Instance}\label{fig:createVM}
 \end{figure}
 
-Figure~\ref{fig:listVM} shows the execution of the REST API for listing all the
-instances of OpenStack available on the Chameleon cloud. 
+Figure~\ref{fig:listVM} shows the execution of the REST API for listing all 
+the instances of OpenStack available on the Chameleon cloud. As you can see, 
+all the instances that have been created by different users are listed, 
+including the ones we created previously. 
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/listVMs.png}
@@ -537,7 +563,8 @@ instances of OpenStack available on the Chameleon cloud.
 
 Figure~\ref{fig:floatingIP} shows the execution of the REST API for associating
 floating IP of instance \textit{test-VM2-516} and its result on Chameleon 
-cloud.
+cloud. By default, only private IP is assigned on instance creation, assigning
+floating IP will allow user to access it outside the cloud. 
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/floatingip.png}
@@ -545,14 +572,18 @@ cloud.
 \end{figure}
 
 Figure~\ref{fig:deleteVM} shows the execution of the REST API for deleting
-instance of OpenStack.
+instance of OpenStack. Listing all the instances again should not display the
+deleted instance.
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/deleteVM.png}
         \caption{Delete Instance}\label{fig:deleteVM}
 \end{figure}
 
 Figure~\ref{fig:stopVM} shows the execution of the REST API for stopping
-instance of OpenStack and its result on the Chameleon cloud.
+instance of OpenStack and its result on the Chameleon cloud. Once the instance
+is stopped, you can check its status on the UI. It should display 
+\textit{Shutoff} against the instance name. Or you can also list the instances
+again and check its status.
 
 \begin{figure}[!ht]
         \centering\includegraphics[width=\columnwidth]{images/stopVM.png}
@@ -574,19 +605,19 @@ created and the link has been added in the README.md file present inside the
 project-paper folder.
 
 \section{Conclusion}
-In this project, we were able to substantially show how the OpenStack instances
-can be deployed using Apache libcloud. We show how Apache libcloud can be
-leveraged to perform different tasks like create/delete/start/stop instances or
-attach floating IP and so on on the OpenStack cloud using the unified API
-abstracting away the underlying details of the cloud provider. We also
-demonstrated how the userdata can be sent on the cloud during instance creation
-using cloud-init configuration and how it can be used to perform different user
-defined tasks. All this was achieved with the help of python scripts that
-leveraged libcloud into RESTful APIs using the Swagger specifications that was
-created in OpenAPI format. This project currently uses TACC as the default
-testbed for interacting with Chameleon cloud. A substantial future work would 
-be take input from user to specify on which testbed/ cloud the user would like 
-to deploy their instances. 
+We were able to substantially show how the OpenStack instances can be deployed 
+using Apache libcloud with the help of Swagger generated code. We showed how 
+Apache libcloud can be leveraged to perform different tasks like 
+create/delete/start/stop instances or attach floating IP and so on on the 
+OpenStack cloud using the unified API abstracting away the underlying details 
+of the cloud provider. We also demonstrated how the userdata can be sent on 
+the cloud during instance creation using cloud-init configuration and how it 
+can be used to perform different user-defined tasks. All this was achieved 
+with the help of python scripts that leveraged libcloud into RESTful APIs 
+using the Swagger specifications that was created in OpenAPI format. 
+Currently, we are using TACC as the default testbed for interacting with 
+Chameleon cloud. A substantial future work would be take input from user to 
+specify on which testbed/cloud the user would like to deploy their instances. 
 
 \begin{acks}
 
