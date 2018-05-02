@@ -16,17 +16,17 @@
 \renewcommand{\shortauthors}{Shagufta}
 
 \begin{abstract}
-This project leverages the capability of Swagger Codegen and Apache libcloud 
-for easily allowing users to deploy instances on OpenStack without worrying 
-about the underlying architecture. The users can create an instance, list 
-instances, add floating ip to the instance, add ssh keypair and more, provided 
-the user has permission to perform these activities. Using the REST API 
-endpoints, a fully-fledged instance can be created instead of clicking on the 
-UI form and filling in the details to get the instance created. We also 
-demonstrates the use of cloud-init to send userdata on instance creation 
-by executing some basic shell commands. To achieve this, we choose 
-OpenStack as the cloud infrastructure since it is ever-growing and one of 
-the most popular cloud platform.
+This work focuses on leveraging the capability of Swagger Codegen and Apache 
+libcloud for allowing users to easily deploy instances on OpenStack without 
+worrying about the underlying architecture. The users can create an instance, 
+list instances, add floating ip to the instance, add ssh keypair and more, 
+provided the user has permission to perform these activities. Using the REST 
+API endpoints, a fully-fledged instance can be created instead of clicking on 
+the UI form and filling in the details to get the instance created. We also 
+demonstrates the use of cloud-init to send userdata on instance creation by 
+executing some basic shell commands. To achieve this, we choose OpenStack as 
+the cloud infrastructure since it is ever-growing and one of the most popular 
+cloud platform.
 \end{abstract}
 
 \keywords{hid-sp18-516, Swagger, REST, Apache libcloud, Python}
@@ -59,7 +59,7 @@ libcloud to abstract the communication with the cloud.
 \end{figure}
 
 \section{Technologies Used}
-This section lists the techologies that were used in this project:
+This section lists the techologies that were used:
 \begin{itemize}
 \item Python 2.7
 \item OpenStack 
@@ -113,8 +113,8 @@ there are mainly 9 key components~\cite{hid-sp18-516-www-opensource}:
    multiple composite cloud applications using templates. 
 \end{description}
 	
-This project uses Compute, Keystone, Horizon and Glance components which is 
-made available through libcloud APIs. 
+We focus on using the Compute, Keystone, Horizon and Glance components which 
+is made available through the libcloud APIs. 
 
 \subsection{Apache libcloud}
 Apache libcloud is a Python library that hides the differences between 
@@ -133,7 +133,7 @@ categories~\cite{hid-sp18-516-www-libcloud}:
 \item Backup as a Service
 \end{itemize}
 
-For the purposes of this project, we are only going to focus on Cloud Servers
+For the purposes of this work, we are only going to focus on Cloud Servers
 and Block Storage category. Libcloud's compute component that falls under the
 Cloud Servers and Block Storage category, can manage cloud and virtual servers
 of different cloud providers. Libcloud provides support for Python 2.7, PyPy,
@@ -150,7 +150,7 @@ simply run~\cite{hid-sp18-516-www-libcloud}:
 \textbf{pip install apache-libcloud}
 
 \subsection{Swagger Codegen}
-This project uses Swagger Codegen 2.0 to design the specifications of the
+We use Swagger Codegen 2.0 to design the specifications of the
 services developed and to generate the code based on the specifications
 developed. Swagger is a tool for developing API specifications based on the
 OpenAPI Specification (OAS). It allows not only the specification, but the
@@ -179,12 +179,12 @@ Computing Center (TACC). It offers a total of over 550 nodes and 5 PB of space
 in twelve Standard Cloud Unit (SCU) racks and about a quarter of the testbed 
 is configured with OpenStack KVM. Chameleon provides an installation of 
 OpenStack version 2015.1 (Kilo) using the KVM virtualization
-technology~\cite{hid-sp18-516-las-handbook}. In this project, we are going to
-interact with Chameleon for TACC for monitoring the creation of virtual 
-machines and other tasks performed on the VM. The easiest way to interact 
-with Chameleon is via the GUI Horizon dashboard as described earlier. To log 
-in to the dashboard, we need to have Chameleon username and password which can 
-be created on the Chameleon portal. 
+technology~\cite{hid-sp18-516-las-handbook}. For the purposes of this work, 
+we are going to interact with Chameleon for TACC for monitoring the creation 
+of virtual machines and other tasks performed on the VM. The easiest way to 
+interact with Chameleon is via the GUI Horizon dashboard as described earlier. 
+To log in to the dashboard, we need to have Chameleon username and password 
+which can be created on the Chameleon portal. 
 
 \section{Methodology}
 We are going to focus on identifying resources related to OpenStack for
@@ -200,9 +200,9 @@ The NBDRA defines interfaces related to Infrastructure as a Service frameworks.
 This includes specific objects useful for OpenStack, Azure, and AWS, as well as
 others. It defines different objects that supports functions such as starting,
 stopping, suspending, resuming, migration, network configuration, assigning of
-resources for the virtual machines~\cite{hid-sp18-516-nist-vol8}. For this
-project, the following resources have been identified for interacting with the
-OpenStack framework:
+resources for the virtual machines~\cite{hid-sp18-516-nist-vol8}. The 
+following resources have been identified for interacting with the OpenStack 
+framework:
 
 \begin{description}
    \item[List Images:] This service lists all the public and private
@@ -287,7 +287,7 @@ required. This is specified in a configuration file defined as
 password, auth\_url, region\_name, project\_name, version\_number and so on 
 can be specified in this yaml file. In order to make the code portable with 
 other clouds, different cloud provider details can also be added to this yaml 
-file. By default, this project only supports cloud provider as \textit{TACC}. 
+file. By default, we only support \textit{TACC} as the cloud provider. 
 
 Reading the configuration parameters from this file and using the REST APIs,
 users can easily create instances on the specified cloud without having to
@@ -300,9 +300,9 @@ can use. It can be downloaded from the web interface via the
 \textit{API Access} tab and clicking on \textit{Download OpenStack RC File} 
 on the top of the page~\cite{hid-sp18-516-www-openrc}. 
 
-The class.yaml file used for this project was provided in the handbook
-~\cite{hid-sp18-516-las-handbook}. I have updated the file with the latest 
-details and used it for this project. 
+The class.yaml file used for this work was provided in the class handbook
+~\cite{hid-sp18-516-las-handbook}. It has been updated with the latest 
+details that are needed for this work. 
 
 \subsection{Using Cloud-Init with OpenStack}
 Cloud-init is the Ubuntu package that can handle early initialization of the
@@ -358,12 +358,13 @@ such as~\cite{hid-sp18-516-www-cloud-init}:
    based on its filename. 
 \end{description}
 
-In this project, user data via user-data script is demonstrated. Libcloud for
-OpenStack allows to use cloud-init using the \textit{ex\_config\_drive} and
-\textit{ex\_userdata} arguments to create\_node function. The user data we are
-demonstrating is a list of shell commands that will be executed on instance
-creation and the result is saved to an output file called \textit{output.txt} 
-in the user's home directory. This userdata is configured in the util.py file.
+We are going to demonstrate the use of user data via user-data script. 
+Libcloud for OpenStack allows to use cloud-init using the 
+\textit{ex\_config\_drive} and \textit{ex\_userdata} arguments to 
+create\_node function. The user data we are demonstrating is a list of 
+shell commands that will be executed on instance creation and the result 
+is saved to an output file called \textit{output.txt} in the user's home 
+directory. This userdata is configured in the util.py file.
 
 Following is an example showing how the cloud-init arguments can be provided 
 in the libcloud create\_node function:
@@ -460,10 +461,10 @@ To stop instance                 & ex\_stop\_node () \\
 \end{tabular}
 \end{table}
 
-\section{Project Artifacts}
+\section{Artifacts}
 
 The Figure~\ref{c:project-artifacts} lists the artifacts provided as part of
-this project:
+this work:
 \begin{figure}[htb]
 \begin{verbatim}
 
@@ -509,7 +510,7 @@ class.yaml and cloud-init configuration for OpenStack.
 the actual implementation of the REST services for OpenStack.
 
 \item \textit{requirements.txt}: This file lists all the dependency python
-packages that are required for the project.
+packages that are needed for execution.
 \end{description}
 
 \section{Results}
@@ -600,9 +601,9 @@ earlier. Following is the command to login to the instance:
 Once logged in, we can navigate to /home/cc/ and view the output of the 
 commands executed via cloud-init. The result is saved in output.txt.
 
-A short video explaining all the execution details of this project has been
-created and the link has been added in the README.md file present inside the  
-project-paper folder.
+A short video explaining the execution details of this work has been
+created and the link has been added to the README.md file present inside the  
+project-code folder.
 
 \section{Conclusion}
 We were able to substantially show how the OpenStack instances can be deployed 
