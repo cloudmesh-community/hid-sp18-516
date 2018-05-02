@@ -23,7 +23,7 @@ list instances, add floating ip to the instance, add ssh keypair and more,
 provided the user has permission to perform these activities. Using the REST 
 API endpoints, a fully-fledged instance can be created instead of clicking on 
 the UI form and filling in the details to get the instance created. We also 
-demonstrates the use of cloud-init to send userdata on instance creation by 
+demonstrate the use of cloud-init to send userdata on instance creation by 
 executing some basic shell commands. To achieve this, we choose OpenStack as 
 the cloud infrastructure since it is ever-growing and one of the most popular 
 cloud platform.
@@ -59,7 +59,7 @@ libcloud to abstract the communication with the cloud.
 \end{figure}
 
 \section{Technologies Used}
-This section lists the techologies that were used:
+This section lists the technologies that were used:
 \begin{itemize}
 \item Python 2.7
 \item OpenStack 
@@ -76,7 +76,7 @@ clouds using pooled virtual resources. OpenStack, managed by OpenStack
 Foundation, controls large pools of compute, storage and networking resources
 throughout a datacenter. OpenStack is available to users via OpenStack API,
 web-based dashboard or through RESTful web
-services~\cite{hid-sp18-516-www-wiki-openstack}. It easily allows users to
+services~\cite{hid-sp18-516-www-wiki-openstack}. It allows users to easily 
 deploy virtual machines that can handle a variety of tasks to manage a cloud
 environment on the fly. OpenStack is made up of a number of components. But
 there are mainly 9 key components~\cite{hid-sp18-516-www-opensource}:
@@ -266,7 +266,7 @@ using its own base path. Base paths for the objects of OpenStack will be
 list of APIs developed and implemented inside the Swagger service:
 
 \begin{description}
-\item[/images:] list images available on the cloud
+\item[/images:] lists images available on the cloud
 \item[/flavor:] lists the flavors available on the cloud
 \item[/listInstances:] lists all the instances available on the cloud
 \item[/createInstance:] creates an instance on the cloud
@@ -514,13 +514,13 @@ packages that are needed for execution.
 \end{description}
 
 \section{Results}
-The Swagger REST services can be deployed as a standalone service or as docker
-container using the commands specified in the Makefile. The service can be
-accessed through browser or CURL utility to verify the execution. After running
-each test target specified in the Makefile (test\_VMs, test\_images,
-test\_flavors, test\_createVM etc.), we can log on to Chameleon cloud to verify
-and validate the result. Some screenshots of the test execution have been
-provided. 
+The Swagger REST services can be deployed as a standalone service or as a 
+docker container using the commands specified in the Makefile. The service 
+can be accessed through browser or CURL utility to verify the execution. After 
+running each test target specified in the Makefile (test\_VMs, test\_images,
+test\_flavors, test\_createVM etc.), we can log on to Chameleon cloud to 
+verify and validate the result. Some screenshots of the test execution have 
+been provided. 
 
 Figure~\ref{fig:list-images} shows the execution of the REST API for listing
 images of OpenStack available on the Chameleon cloud. As you can see, all the
@@ -606,7 +606,7 @@ created and the link has been added to the README.md file present inside the
 project-code folder.
 
 \section{Conclusion}
-We were able to substantially show how the OpenStack instances can be deployed 
+We were able to successfully show how the OpenStack instances can be deployed 
 using Apache libcloud with the help of Swagger generated code. We showed how 
 Apache libcloud can be leveraged to perform different tasks like 
 create/delete/start/stop instances or attach floating IP and so on on the 
