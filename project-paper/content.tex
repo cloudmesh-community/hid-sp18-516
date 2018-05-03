@@ -381,8 +381,8 @@ echo 'ifconfig details: $(ifconfig)' | tee -a /home/cc/output.txt
 node = driver.create_node(name='vm_name', image=image, size=size,
                           ex_userdata=userdata, ex_config_drive=True)
 \end{verbatim}
-\caption{User-Data Scripts}
-~\cite{hid-sp18-516-www-cloud-init}\label{c:cloud-init-example1}
+\caption{User-Data Scripts
+~\cite{hid-sp18-516-www-cloud-init}}\label{c:cloud-init-example1}
 \end{figure}
 
 Following is another example of user data using cloud-config format. This
@@ -401,8 +401,8 @@ runcmd:
 node = driver.create_node(name='cloud_init', image=image, size=size,
                           ex_userdata=cloud_init_config, ex_config_drive=True)
 \end{verbatim}
-\caption{Cloud Config Example}
-~\cite{hid-sp18-516-www-libcloud-functions}\label{c:cloud-init-example2}
+\caption{Cloud Config Example
+~\cite{hid-sp18-516-www-libcloud-functions}}\label{c:cloud-init-example2}
 \end{figure}
 
 As explained above, other user data formats can be sent as cloud-init user 
