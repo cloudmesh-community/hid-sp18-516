@@ -219,7 +219,7 @@ clean:
 	rm -rf _region_.*
 	rm -f iureport.cls
 	rm -f ACM-Reference-Format.bst
-
+	rm -f check.tex
 
 view:
 	$(OPEN) ${FILE}.pdf
