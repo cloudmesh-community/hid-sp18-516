@@ -1,3 +1,8 @@
+'''
+author: Shagufta Pathan
+purpose: util code that reads config file and exposes those settings via getters
+'''
+
 import yaml
 import sys
 import logging
