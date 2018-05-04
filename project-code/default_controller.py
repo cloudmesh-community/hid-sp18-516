@@ -1,3 +1,11 @@
+'''
+author: Shagufta Pathan
+purpose: wrapper code that uses Apache libcloud APIs to provision/ manage OpenStack cloud resources
+References: 
+    https://developer.openstack.org/firstapp-libcloud/getting_started.html
+    https://libcloud.readthedocs.io/en/latest/compute/drivers/openstack.html
+'''
+
 import connexion
 import six
 
