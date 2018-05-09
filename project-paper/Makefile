@@ -4,6 +4,8 @@ REVIEW=review
 DEFAULT=$(FILE)
 LATEX=pdflatex
 BIBTEX=bibtex
+DIR=$(shell basename "${PWD}")
+OS=$(shell uname)
 
 SAMPLE=../../hid-sample
 
@@ -30,15 +32,17 @@ all: prepare
 	make -f Makefile generate
 
 generate: clean iureport check log
-	$(LATEX) ${FLAGS} ${FILE}
-	$(BIBTEX) ${FILE}
-	$(LATEX) ${FLAGS} ${FILE}
-	$(LATEX) ${FLAGS} ${FILE}
+		$(LATEX) ${FLAGS} ${FILE}
+		$(BIBTEX) ${FILE}
+		$(LATEX) ${FLAGS} ${FILE}
+		$(LATEX) ${FLAGS} ${FILE}
 
 prepare:
-	cd ../../hid-sample; git pull
-	cp ../../hid-sample/paper/Makefile .
-	cp ../../hid-sample/paper/report.tex .
+	@if [ $(DIR) == paper ]; then  echo 'no need to copy'; fi; 
+	@if [ $(DIR) != paper ]; then  cd ../../hid-sample; git pull ; fi
+	@if [ $(DIR) != paper ]; then  cp ../../hid-sample/paper/Makefile . ; fi
+	@if [ $(DIR) != paper ]; then  cp ../../hid-sample/paper/report.tex . ; fi
+
 
 iureport:
 	cp $(SAMPLE)/tex/format/iureport.cls .
